@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.min.mapper.ReplyMapper">
+
+<insert id="repboardWrite">
+	insert into tbl_reply(bno, replytext, replyer, regdate)
+    values(#{bno}, #{replytext}, #{replyer}, sysdate())
+</insert>
+
+<update id="repboardModify">
+	update tbl_reply
+	set replytext=#{replytext}
+	, updatedate=sysdate()
+	where rno=#{rno}
+</update>
+
+<select id="repboardList" resultType="com.min.model.ReplyVO">
+	select*
+	from tbl_reply
+	where bno=#{bno}
+</select>
+
+<delete id="repboardDelete">
+	delete from tbl_reply where rno=#{rno}
+</delete>
+
+	<!-- 페이징 처리한 전체 목록 리스트 -->
+	<select id="repboardListPage" resultType="com.min.model.ReplyVO">
+	
+		select rno, bno, replytext, replyer, regdate, updatedate 
+		from(
+			select @rownum:=@rownum+1 as rownum, rno, bno, replytext, replyer, regdate, updatedate  
+			from (select @rownum:=0) as rownum, tbl_reply 
+			where bno=#{bno}
+			order by rno desc ) tbl_reply 
+	<![CDATA[	
+		where rownum >(#{cri.pageNum}-1)*#{cri.amount} and rownum<=#{cri.pageNum}*#{cri.amount}
+		and bno=#{bno}
+	]]>
+	
+	</select>
+	
+	
+	<select id="count" resultType="int">
+		
+		select count(*) from tbl_reply where bno=#{bno}
+		
+	</select>
+
+</mapper>

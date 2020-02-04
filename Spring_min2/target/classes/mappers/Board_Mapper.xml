@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.min.mapper.Board_Mapper">
+
+<select id="boardlist" resultType="com.min.model.Board_VO">
+		select no, subject, content, uid ,write_date
+		from(select @rownum:=@rownum+1 as rownum, no, subject, content, uid, write_date from (select @rownum:=0) as rownum, board_tb
+		<if test="keyword != null">
+		where subject like concat ('%',#{keyword},'%') 
+		</if>
+		order by no desc ) board_tb 
+	<![CDATA[	
+		where rownum >(#{pagenum}-1)*#{amount} and rownum<=#{pagenum}*#{amount};
+	]]>
+	
+</select>
+
+<select id="boardcount" resultType="int">
+	<![CDATA[
+		select count(*) from board_tb
+	]]>
+	<if test="keyword != null">
+		where subject like concat('%', #{keyword}, '%')
+	</if> 
+</select>
+
+<insert id="boardwrite">
+	insert into board_tb(subject, content, uid, write_date, file)
+	values(#{board.subject}, #{board.content}, #{board.uid}, sysdate(), #{filename})
+</insert>
+
+<select id="boarddetail" resultType="com.min.model.Board_VO">
+
+	select * from board_tb where no=${no}
+
+</select>
+
+<update id="boardmodify">
+
+	update board_tb set subject = #{subject}
+	, content = #{content} 
+	where no = #{no};
+
+</update>
+
+<delete id="boarddelete">
+
+	delete from board_tb where no=${no};
+
+</delete>
+
+<insert id="addAttach">
+	insert into tbl_attach(filename, no) values(#{filename}, LAST_INSERT_ID())
+</insert>
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

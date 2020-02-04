@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.min.mapper.UploadMapper">
+
+
+<insert id="upload">
+
+	<selectKey resultType="int" keyProperty="no" order="BEFORE">
+	select  max(no)+1 from product_tb
+	</selectKey>
+	insert into product_tb(name, proexplain, amount, price)
+	values(#{name}, #{proexplain}, #{amount}, #{price})
+	
+</insert>
+
+<select id="detail" resultType="com.min.model.AdminVO">
+
+	select * from product_tb
+	
+</select>
+
+<select id="maindetail" resultType="com.min.model.AdminVO">
+
+	select * from product_tb where no=${no}
+	
+</select>
+
+<insert id="addAttach">
+
+	insert into attach_tb(file, no)
+	values(#{filename}, LAST_INSERT_ID())
+
+</insert>
+
+<delete id="maindelete">
+
+	delete from product_tb where no=${no};
+
+</delete>
+
+
+</mapper>

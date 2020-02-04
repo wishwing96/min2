@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.min.mapper.OrderMapper">
+
+<insert id="order">
+	
+	insert 	into order_tb(orderno, uid, uaddress, uphone, price, opt, name)	
+	values (#{orderno}, #{vo.uid}, #{vo.uaddress}, #{vo.uphone}, #{vo.price},#{vo.opt}, #{vo.name})
+</insert>
+
+
+<select id="orderResult" resultType="com.min.model.OrderVO">
+	select * from order_tb where uid=#{uid}
+</select>
+
+<select id="adminOrder" resultType="com.min.model.OrderVO">
+	select * from order_tb
+</select>
+
+</mapper>

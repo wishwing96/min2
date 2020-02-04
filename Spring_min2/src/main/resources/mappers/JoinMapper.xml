@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.min.mapper.JoinMapper">
+
+<insert id="join">
+
+	insert into join_tb(uname, uid, upw, uemail, ugender, uaddress, ubirth, uphone)
+	values(#{uname},#{uid},#{upw},#{uemail},#{ugender},#{uaddress},#{ubirth}, #{uphone})
+	
+</insert>
+
+<select id="id" resultType="com.min.model.LoginVO">
+
+	select uid, uname from join_tb where uname=#{uname} and uphone=#{uphone}
+	
+</select>
+
+<select id="pw" resultType="com.min.model.LoginVO">
+
+	select upw, uname from join_tb where uid=#{uid} and uname=#{uname}
+	
+</select>
+
+<update id="information">
+
+	update join_tb set uname = #{uname}, upw = #{upw}, uaddress = #{uaddress}, uphone = #{uphone}
+	where uid = #{uid}
+
+</update>
+
+<select id="inform" resultType="com.min.model.LoginVO">
+
+	select * from join_tb
+
+</select>
+
+<select id="IdCheck" resultType="com.min.model.JoinVO">
+
+	select * from join_tb where uid=#{uid}
+
+</select>
+
+</mapper>
+

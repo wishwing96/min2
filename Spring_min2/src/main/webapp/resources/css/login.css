@@ -1,0 +1,15 @@
+@charset "UTF-8";
+
+#logbox{
+	width:500px;
+	height:800px;
+	margin:0px auto;
+	margin-top:400px;
+	text-align:center;	
+	bacground-color:white;
+	
+}
+
+#login{
+	border:1px solid black;
+}
