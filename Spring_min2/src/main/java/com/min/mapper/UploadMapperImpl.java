@@ -10,6 +10,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.min.model.AdminVO;
+import com.min.model.BoardRepVO;
+import com.min.model.Criteria;
 import com.min.model.UploadVO;
 
 @Repository
@@ -23,22 +25,19 @@ public class UploadMapperImpl implements UploadMapper{
 	//public void upload(AdminVO vo, String filename, String mainfilename) throws Exception {
 	public void upload(AdminVO vo) throws Exception {
 		sqlSession.insert(namespace+".upload", vo);
-		
 	}
 
 	@Override
 	public List<AdminVO> detail() throws Exception {
 		List list = sqlSession.selectList(namespace+".detail");
-		System.out.println("UploadMapper detail() list="+list);
 		return list;
 		
 	}
 
 	@Override
-	public AdminVO maindetail(int no) throws Exception {
-		AdminVO vo = sqlSession.selectOne(namespace+".maindetail", no);
-		System.out.println("UploadMapper maindetail() vo="+vo);
-		return vo;
+	public List<AdminVO> maindetail(int no) throws Exception {
+		List list = sqlSession.selectList(namespace+".maindetail", no);
+		return list;
 	}
 
 	@Override
@@ -52,6 +51,22 @@ public class UploadMapperImpl implements UploadMapper{
 		sqlSession.delete(namespace+".maindelete", vo);
 		
 	}
+
+	@Override
+	public void registerReply(BoardRepVO reply) throws Exception {
+		sqlSession.insert(namespace+".regiterReply", reply);
+		
+	}
+
+	@Override
+	public List<BoardRepVO> replyList(int gdsnum) throws Exception {
+		List list = sqlSession.selectList(namespace+".replyList", gdsnum);
+		return list;
+	}
+
+
+
+
 	
 
 }

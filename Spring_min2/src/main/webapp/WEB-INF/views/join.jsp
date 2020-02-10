@@ -105,10 +105,7 @@
 			-<input type="text" id="phone3">
 			<input type="hidden" id="phone" name="uphone">
 			</td></tr>
-			<tr><td colspan="3">
-			<input type="checkbox" id="no">개인정보 수집에 동의합니다.
-			</td></tr>
-			<th colspan="3"><input type="submit" value="가입" id="member" onclick="btn_click('join')"></th>
+			<tr><th colspan="3"><input type="submit" value="가입" id="member" onclick="btn_click('join')"></th></tr>
 		</table>
 	</div>
 </form>

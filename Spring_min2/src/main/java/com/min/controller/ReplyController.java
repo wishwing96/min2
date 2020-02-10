@@ -95,7 +95,7 @@ public class ReplyController {
 			e.printStackTrace();
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
-		
+		System.out.println("update controller="+vo);
 		return entity;
 	}
 	

@@ -1,9 +1,13 @@
 
 		//파일 형식 검사
+
+		alert("aaa");
+
 		 var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 		 var maxSize = 10485760;
 	
 	  function checkExtension(fileName, fileSize){
+		  
 		  if(fileSize >= maxSize){
 			  alert("파일 사이즈 초과");
 			  return false;

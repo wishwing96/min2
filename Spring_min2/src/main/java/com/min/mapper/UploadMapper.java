@@ -3,7 +3,8 @@ package com.min.mapper;
 import java.util.List;
 
 import com.min.model.AdminVO;
-import com.min.model.Board_VO;
+import com.min.model.BoardRepVO;
+import com.min.model.Criteria;
 import com.min.model.UploadVO;
 
 public interface UploadMapper {
@@ -14,10 +15,14 @@ public interface UploadMapper {
 	
 	public List<AdminVO> detail() throws Exception;
 	
-	public AdminVO maindetail(int no) throws Exception;
+	public List<AdminVO> maindetail(int no) throws Exception;
 	
 	public void addAttach(String filename) throws Exception;
 	
 	public void maindelete(AdminVO vo) throws Exception;
+	
+	public void registerReply(BoardRepVO reply) throws Exception;
+	
+	public List<BoardRepVO> replyList(int gdsnum) throws Exception;
 
 }

@@ -3,7 +3,9 @@ package com.min.service;
 import java.util.List;
 
 import com.min.model.AdminVO;
-import com.min.model.BoardVO;
+import com.min.model.BoardRepVO;
+import com.min.model.Criteria;
+import com.min.model.UploadVO;
 
 public interface UploadService {
 
@@ -11,8 +13,12 @@ public interface UploadService {
 	
 	public List<AdminVO> detail() throws Exception;
 	
-	public AdminVO maindetail(int no) throws Exception;
+	public List<AdminVO> maindetail(int no) throws Exception;
 	
 	public void maindelete(AdminVO vo) throws Exception;
+	
+	public void registerReply(BoardRepVO reply) throws Exception;
+	
+	public List<BoardRepVO> replyList(int gdsnum) throws Exception;
 	
 }

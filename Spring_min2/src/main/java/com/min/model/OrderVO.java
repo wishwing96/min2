@@ -9,6 +9,8 @@ public class OrderVO {
     private String uphone;
     private int price;
     private String opt;
+    private int state;
+    private String msg;
 	public String getOrderno() {
 		return orderno;
 	}
@@ -51,10 +53,25 @@ public class OrderVO {
 	public void setOpt(String opt) {
 		this.opt = opt;
 	}
+	public int getState() {
+		return state;
+	}
+	public void setState(int state) {
+		this.state = state;
+	}
+	public String getMsg() {
+		return msg;
+	}
+	public void setMsg(String msg) {
+		this.msg = msg;
+	}
 	@Override
 	public String toString() {
 		return "OrderVO [orderno=" + orderno + ", name=" + name + ", uid=" + uid + ", uaddress=" + uaddress
-				+ ", uphone=" + uphone + ", price=" + price + ", opt=" + opt + "]";
+				+ ", uphone=" + uphone + ", price=" + price + ", opt=" + opt + ", state=" + state + ", msg=" + msg
+				+ "]";
 	}
+    
+
 	
 }

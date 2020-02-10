@@ -56,6 +56,7 @@
 				<td>옵션확인</td>
 				<td>주소확인</td>
 				<td>전화확인</td>
+				<td>주문상태</td>
 			</tr>
 <c:forEach items="${check }" var="check">
 			<tr>
@@ -70,6 +71,8 @@
 				<td>${check.uaddress }</td>
 				
 				<td>${check.uphone }</td>
+				
+				<td>${check.msg }</td>
 			</tr>
 </c:forEach>
 		</table>

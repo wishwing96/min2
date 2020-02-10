@@ -100,27 +100,9 @@ $("#phone3").keyup(function(){
 		var phone = phone1+'-'+phone2+'-'+phone3;
 		$("#phone").val(phone);
 	})
-
-$("#member").on("click", function(){
-	if($("#uid").val()==""){
-		alert("아이디를 입력하세요.");
-		return false;
-	}
-	if($("#upassword").val()==""){
-		alert("비밀번호를 입력하세요.");
-		return false;
-	}
-	if($("#upassword").val().equals($("#pwcheck").val())){
-		alert("비밀번호를 확인하세요");
-		return false;
-	}
-	if($("#no").val().checked==false){
-		alert("개인정보 수집에 체크하세요.");
-		return false;
-	}
-})
-
+	
 var idck = 0;
+var check = 0;
 	
 $("#IdCheck").on("click", function(){
 	var uid = $("#uid").val();
@@ -132,6 +114,7 @@ $("#IdCheck").on("click", function(){
 				alert("성공");
 				idck=1;
 			}else{
+				check=1;
 				alert("실패");
 			}
 		},
@@ -140,6 +123,42 @@ $("#IdCheck").on("click", function(){
 		}
 	})
 })
+
+
+$("#member").on("click", function(){
+	alert(check);
+	if(check==1){
+		alert("아이디 중복 확인을 해주세요.");
+		return false;
+	}
+	
+	if($("#emailcheck1").val()!=$("#code").html()){
+		alert("이메일 인증을 확인하세요.");
+		return false;
+	}
+	if($("#uid").val()==""){
+		alert("아이디를 입력하세요.");
+		return false;
+	}
+	if($("#uid").val().length<8 || $("#uid").val().length>12){
+		alert("아이디를 확인하세요.");
+		return false;
+	}
+	if($("#upassword").val().length<8 || $("#upassword").val().length>12){
+		alert("비밀번호를 확인하세요.");
+		return false;
+	}
+	if($("#upassword").val()==""){
+		alert("비밀번호를 입력하세요.");
+		return false;
+	}
+	if($("#upassword").val().equals($("#pwcheck").val())){
+		alert("비밀번호를 확인하세요");
+		return false;
+	}
+	
+})
+
 
 $(document).ready(function(){
 

@@ -1,16 +1,21 @@
 package com.min.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,14 +27,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.min.model.AdminVO;
+import com.min.model.BoardRepVO;
+import com.min.model.Criteria;
+import com.min.model.PageVO;
+import com.min.model.ReplyVO;
 import com.min.model.UploadVO;
 import com.min.service.UploadService;
+import com.min.util.MimeMediaUtil;
 
 import net.coobird.thumbnailator.Thumbnailator;
 
@@ -51,7 +63,7 @@ public class UploadController {
 	}
 	
 	private String getFolder() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
 		
 		Date date = new Date();
 		
@@ -63,10 +75,9 @@ public class UploadController {
 	
 	// 파일이 이미지인지 다른파일의 형식인지를 판단하는 메서드
 	private boolean checkImageType(File file) {
-		
 		try {
 			String contentType = Files.probeContentType(file.toPath());
-			
+			System.out.println("contentType="+contentType);
 			return contentType.startsWith("image");
 		} catch(IOException e) {
 			e.printStackTrace();			
@@ -77,7 +88,7 @@ public class UploadController {
 	
 	@ResponseBody
 	@RequestMapping(value="/ajax", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<UploadVO>>ajaxPost(MultipartFile[] uploadFile, AdminVO vo)
+	public ResponseEntity<List<UploadVO>>ajaxPost(MultipartFile[] uploadFile)
 	{
 		
 		List<UploadVO> list = new ArrayList<>();
@@ -89,7 +100,6 @@ public class UploadController {
 		
 		logger.info("upload path : " + uploadPath);
 		logger.info("uploadFolderPath : " + uploadFolderPath);
-		
 		if(uploadPath.exists() == false) {
 			uploadPath.mkdirs();
 		}
@@ -118,32 +128,29 @@ public class UploadController {
 			
 			try {
 				File saveFile = new File(uploadPath, uploadFileName);
+				
 				multipartFile.transferTo(saveFile);
 				
 				admin.setUuid(uuid.toString());
 				admin.setUploadPath(uploadFolderPath);
 				System.out.println("saveFile==="+saveFile);
 				System.out.println("admin==="+admin.getUploadPath());
-
+				//System.out.println(checkImageType(saveFile));
 			//check image type file  => make thumbnail
+				
 				/*if(checkImageType(saveFile)) {
 					
 					admin.setImage(true);
 					
 					System.out.println("uploadPath"+uploadPath);
 					System.out.println("uploadFileName"+uploadFileName);
-							
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-					System.out.println("aaaaaaaa");
-					System.out.println("thumbnail="+thumbnail);
-					System.out.println("multipartFile.getInputStream()="+multipartFile.getInputStream());
-					System.out.println("bbbbbbbb");
-					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
-					System.out.println("checkImageType");
-							
-					thumbnail.close();
 					
-				
+					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
+					
+					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
+
+					thumbnail.close();
+
 				}*/
 
 					
@@ -180,7 +187,6 @@ public class UploadController {
 			
 		}
 		
-		System.out.println("aaaa="+vo);
 		us.upload(vo);
 		System.out.println("bbbb");
 		
@@ -217,6 +223,8 @@ public class UploadController {
 		return result;
 		
 	}
+	
+	
 
 	
 
@@ -288,7 +296,7 @@ public class UploadController {
 	public void uploadAjax() {
 		logger.info("uploadGet : ");
 	}
-	}
+	
 	/*
 	@ResponseBody
 	@RequestMapping(value = "/uploadAjax",
@@ -317,7 +325,7 @@ public class UploadController {
 					HttpStatus.CREATED);
 	}
 	
-/*	@ResponseBody
+	@ResponseBody
 	@RequestMapping("/displayFile")
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception{
 		InputStream in =null;
@@ -347,7 +355,7 @@ public class UploadController {
 			in.close();
 		}
 		return entity;
-	}
+	}*/
 	
 	@ResponseBody
 	@RequestMapping(value="/displayFile", method=RequestMethod.GET)
@@ -383,7 +391,40 @@ public class UploadController {
 		return entity;
 	}
 	
+	
 	@ResponseBody
+	@RequestMapping(value="/reply", method=RequestMethod.POST)
+	public ResponseEntity<String> registReply(@RequestBody BoardRepVO reply) throws Exception{
+		ResponseEntity<String> entity = null;
+		try {
+			us.registerReply(reply);
+			entity = new ResponseEntity<String>("SUCCESS", HttpStatus.OK);
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+		return entity;
+	}
+	@ResponseBody	
+	@RequestMapping(value="/replyList/{gdsnum}", method = RequestMethod.GET)
+	public ResponseEntity<List<BoardRepVO>> list(@PathVariable("gdsnum") int gdsnum){
+		ResponseEntity<List<BoardRepVO>> entity=null;
+	
+		try {
+			entity=new ResponseEntity<List<BoardRepVO>>(us.replyList(gdsnum), HttpStatus.OK);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			entity = new ResponseEntity<List<BoardRepVO>>(HttpStatus.BAD_REQUEST);
+		}
+		
+		return entity;
+	}
+}
+
+
+	
+/*	@ResponseBody
 	@RequestMapping(value="/deleteFile", method=RequestMethod.POST)
 	public ResponseEntity<String> deleteFile(String fileName){
 		logger.info("delete file: " + fileName);

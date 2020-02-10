@@ -17,13 +17,24 @@
 
 <select id="detail" resultType="com.min.model.AdminVO">
 
-	select * from product_tb
-	
+	select p.no, name, max(filename) filename, max(uploadPath)uploadPath, max(uuid) uuid
+	from product_tb as p, upload_tb as u
+	where p.no = u.no
+    group by p.no;
+
+</select>
+
+<select id="detailupload" resultType="com.min.model.UploadVO">
+
+	select * from upload_tb
+
 </select>
 
 <select id="maindetail" resultType="com.min.model.AdminVO">
 
-	select * from product_tb where no=${no}
+	select *
+	from product_tb as p, upload_tb as u
+	where p.no = ${no} and u.no = ${no};
 	
 </select>
 
@@ -39,6 +50,19 @@
 	delete from product_tb where no=${no};
 
 </delete>
+
+<insert id="regiterReply">
+	
+	insert into reply_tb(gdsnum, uid, repcon, repdate)
+	values (#{gdsnum}, #{uid}, #{repcon}, sysdate());
+	
+</insert>
+
+<select id="replyList" resultType="com.min.model.BoardRepVO">
+	
+	select * from reply_tb
+
+</select>
 
 
 </mapper>

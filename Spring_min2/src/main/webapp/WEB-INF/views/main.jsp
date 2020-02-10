@@ -54,19 +54,41 @@
 </c:if>
 <div id="item">
 <table>
-<c:forEach items="${list}" var="list">
- 
- <tr>
- 	<td><img src="displayFile?fileName=/${list.mainfile}"></td>
- </tr>
+
+<c:forEach items="${list}" var="list" varStatus="status">
+
+	<input type="hidden" value="${list.uploadPath }" id="path${status.count}">
+	<input type="hidden" value="${list.uuid }" id="uuid${status.count}">
+	<input type="hidden" value="${list.filename}" id="filename${status.count}">
+	<tr><td><div class="img${status.count}"></div></td></tr>
+	
+	<script>
+	
+
+	$(document).ready(function(){
+		var str="";
+		
+			
+			var file=$("#path${status.count}").val()+"/"+$("#uuid${status.count}").val()+"_"+$("#filename${status.count}").val();
+			
+			str = "<div>"+"<img src='display?filename="+file+"' width='300' height='300'>"+"<div>"
+			
+			$(".img${status.count}").append(str);
+		
+	});
+	
+	</script>
 
  <tr>
  	<td><a href="main_detail?no=${list.no}">${list.name}</a></td>
  </tr>
 </c:forEach>
+
+
 </table>
 </div>
 </body>
+
 </html>
 
 

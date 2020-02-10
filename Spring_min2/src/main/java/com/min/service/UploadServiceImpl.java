@@ -15,6 +15,9 @@ import org.springframework.web.multipart.MultipartFile;
 import com.min.mapper.Upload2Mapper;
 import com.min.mapper.UploadMapper;
 import com.min.model.AdminVO;
+import com.min.model.BoardRepVO;
+import com.min.model.Criteria;
+import com.min.model.UploadVO;
 
 @Service
 public class UploadServiceImpl implements UploadService {
@@ -49,13 +52,13 @@ public class UploadServiceImpl implements UploadService {
 
 	@Override
 	public List<AdminVO> detail() throws Exception {
-		
+		System.out.println("main service");
 		return um.detail();
 		
 	}
 
 	@Override
-	public AdminVO maindetail(int no) throws Exception {
+	public List<AdminVO> maindetail(int no) throws Exception {
 		System.out.println("UploadService list="+um.maindetail(no));
 		return um.maindetail(no);
 	}
@@ -65,4 +68,17 @@ public class UploadServiceImpl implements UploadService {
 		um.maindelete(vo);
 		
 	}
+
+	@Override
+	public void registerReply(BoardRepVO reply) throws Exception {
+		um.registerReply(reply);
+		
+	}
+
+	@Override
+	public List<BoardRepVO> replyList(int gdsnum) throws Exception {
+		return um.replyList(gdsnum);
+	}
+
+
 }

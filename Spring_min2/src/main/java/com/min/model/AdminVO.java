@@ -12,9 +12,39 @@ public class AdminVO {
 	private int amount;
 	private String proexplain;
 	private int price;
-	private String mainfile;
-	private MultipartFile mainfilename;
 	
+	private String filename;
+
+	private String uploadPath;
+
+	private String uuid;
+
+	private boolean image;
+
+	public String getFilename() {
+		return filename;
+	}
+	public void setFilename(String filename) {
+		this.filename = filename;
+	}
+	public String getUploadPath() {
+		return uploadPath;
+	}
+	public void setUploadPath(String uploadPath) {
+		this.uploadPath = uploadPath;
+	}
+	public String getUuid() {
+		return uuid;
+	}
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	public boolean isImage() {
+		return image;
+	}
+	public void setImage(boolean image) {
+		this.image = image;
+	}
 	public int getNo() {
 		return no;
 	}
@@ -51,26 +81,15 @@ public class AdminVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public String getMainfile() {
-		return mainfile;
-	}
-	public void setMainfile(String mainfile) {
-		this.mainfile = mainfile;
-	}
-	public MultipartFile getMainfilename() {
-		return mainfilename;
-	}
-	public void setMainfilename(MultipartFile mainfilename) {
-		this.mainfilename = mainfilename;
-	}
 	
 	@Override
 	public String toString() {
 		return "AdminVO [no=" + no + ", name=" + name + ", uploadvo=" + uploadvo + ", amount=" + amount
-				+ ", proexplain=" + proexplain + ", price=" + price + "]";
+				+ ", proexplain=" + proexplain + ", price=" + price + ", filename=" + filename + ", uploadPath="
+				+ uploadPath + ", uuid=" + uuid + ", image=" + image + "]";
 	}
-	
-	
+
+
 	
 }
 
