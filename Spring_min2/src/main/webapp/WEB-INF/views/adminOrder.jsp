@@ -60,8 +60,11 @@
 			<c:forEach items="${order}" var="order">
 			
 			<tr>
-				<td><input type="checkbox" value="${num}" name="check"></td>
-				<td><input type="hidden" value="${order.orderno}" id="orderno">
+				<td>
+					<div class="chBox">
+						<input type="checkbox" id="check">
+					</div>
+					<input type="hidden" value="${order.orderno}" id="orderno${num}">
 					${order.orderno }</td>
 				<td>${order.name }</td>
 				<td>${order.uid }</td>
@@ -71,11 +74,57 @@
 				<td>${order.msg }</td>
 			</tr>
 			
+			<tr><th colspan="7"><input type="button" value="발송" id="post${num}"><input type="button" value="발송완료" id="completion${num}"></th></tr>
+				<script>
+			
+				$("#post${num}").click(function(){	
+					   var orderno = $("#orderno${num}").val();
+						alert(orderno);
+						var state = 1;
+						$.ajax({
+							type : "put",
+							url : "state/"+orderno,
+							contentType : "application/json",
+							dataType : "text",
+							data : JSON.stringify({state:state}),
+							success	: function(data){
+								alert("ok");
+							},
+							error : function(err){
+								alert("error");
+							}
+						})
+				})
+				
+				$("#completion${num}").on("click", function(){
+				var orderno = $("#orderno${num}").val();
+				alert(orderno);
+				var state = 2;
+				$.ajax({
+					type : "put",
+					url : "state/"+orderno,
+					contentType : "application/json",
+					dataType : "text",
+					data : JSON.stringify({state:state}),
+					success	: function(data){
+						alert("ok");
+					},
+					error : function(err){
+						alert("error");
+					}
+				})
+			})
+			
+			</script>
 			<c:set var="num" value="${num+1}"></c:set>
+			
+			
 			</c:forEach>
 
-			<tr><th colspan="7"><input type="button" value="발송" id="post"><input type="button" value="발송완료" id="completion"></th></tr>
+			
 		
+		
+			
 		</table>
 
 	</div>
