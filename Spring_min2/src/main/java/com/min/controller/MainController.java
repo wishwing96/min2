@@ -81,17 +81,13 @@ public class MainController {
 	
 	@RequestMapping(value="/ordercheck", method=RequestMethod.GET)
 	public String ordercheck(Model model, JoinVO vo) throws Exception{
-		
 		model.addAttribute("check", os.orderResult(vo));
-		System.out.println("os.orderResult="+os.orderResult(vo));
 		
 		return "ordercheck";
 	}
 	
 	@RequestMapping(value="/adminOrder", method=RequestMethod.GET)
 	public String adminOrder(Model model) throws Exception{
-		System.out.println("adminOrder Controller="+ os.adminOrder());
-		model.addAttribute("i", os.adminOrder().size());
 		model.addAttribute("order", os.adminOrder());
 		return "adminOrder";
 	}
