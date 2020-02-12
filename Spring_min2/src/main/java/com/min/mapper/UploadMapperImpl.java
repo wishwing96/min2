@@ -26,7 +26,13 @@ public class UploadMapperImpl implements UploadMapper{
 	public void upload(AdminVO vo) throws Exception {
 		sqlSession.insert(namespace+".upload", vo);
 	}
-
+	
+	@Override
+	public void upload1(UploadVO upload) {
+		sqlSession.insert(namespace+".upload2", upload);
+		
+	}
+	
 	@Override
 	public List<AdminVO> detail() throws Exception {
 		List list = sqlSession.selectList(namespace+".detail");
@@ -39,16 +45,10 @@ public class UploadMapperImpl implements UploadMapper{
 		List list = sqlSession.selectList(namespace+".maindetail", no);
 		return list;
 	}
-
-	@Override
-	public void addAttach(String filename) throws Exception {
-		sqlSession.insert(namespace+".addAttach", filename);
-		
-	}
 	
 	@Override
-	public void maindelete(AdminVO vo) throws Exception {
-		sqlSession.delete(namespace+".maindelete", vo);
+	public void uploadDel(AdminVO vo) throws Exception {
+		sqlSession.delete(namespace+".uploadDel", vo);
 		
 	}
 

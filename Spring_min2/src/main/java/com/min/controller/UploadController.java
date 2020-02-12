@@ -31,6 +31,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -70,20 +71,6 @@ public class UploadController {
 		String str = sdf.format(date);
 		
 		return str.replace("-",File.separator);
-	}
-	
-	
-	// 파일이 이미지인지 다른파일의 형식인지를 판단하는 메서드
-	private boolean checkImageType(File file) {
-		try {
-			String contentType = Files.probeContentType(file.toPath());
-			System.out.println("contentType="+contentType);
-			return contentType.startsWith("image");
-		} catch(IOException e) {
-			e.printStackTrace();			
-		}
-		return false;
-		
 	}
 	
 	@ResponseBody
@@ -135,26 +122,7 @@ public class UploadController {
 				admin.setUploadPath(uploadFolderPath);
 				System.out.println("saveFile==="+saveFile);
 				System.out.println("admin==="+admin.getUploadPath());
-				//System.out.println(checkImageType(saveFile));
-			//check image type file  => make thumbnail
-				
-				/*if(checkImageType(saveFile)) {
-					
-					admin.setImage(true);
-					
-					System.out.println("uploadPath"+uploadPath);
-					System.out.println("uploadFileName"+uploadFileName);
-					
-					FileOutputStream thumbnail = new FileOutputStream(new File(uploadPath, "s_" + uploadFileName));
-					
-					Thumbnailator.createThumbnail(multipartFile.getInputStream(), thumbnail, 100, 100);
-
-					thumbnail.close();
-
-				}*/
-
-					
-				//add to List
+		
 				list.add(admin);
 				System.out.println("list====="+list);
 					
@@ -182,9 +150,7 @@ public class UploadController {
 		logger.info("adminpage Post!!!!!!!!!!");
 		if(vo.getUploadvo() != null) {
 			System.out.println("aaaaaa");
-			vo.getUploadvo().forEach(attach -> logger.info(""+attach));
-			//System.out.println("book.getbCover()"+book.getbCover());
-			
+			vo.getUploadvo().forEach(attach -> logger.info(""+attach));			
 		}
 		
 		us.upload(vo);
@@ -195,6 +161,12 @@ public class UploadController {
 		
 	}
 	
+	@RequestMapping(value="/register", method = RequestMethod.GET)
+	public void registerPost(Model model) throws Exception
+	{
+		System.out.println("register controller="+us.detail());
+		model.addAttribute("list", us.detail());
+	}
 
 	@RequestMapping("/display")
 	@ResponseBody
@@ -224,74 +196,25 @@ public class UploadController {
 		
 	}
 	
-	
-
-	
-
-	/*@RequestMapping(value="/adminpage", method = RequestMethod.POST)
-	public String adminpagePost(AdminVO vo, Model model) throws Exception{
-		
-		
-		System.out.println("adminpagePost");
-		String filename = null;
-		for(MultipartFile file : vo.getFilename()) {
-			System.out.println(file.getOriginalFilename());
-			filename = uploadFile(file.getOriginalFilename(), file.getBytes());
-		}
-		
-		//String filename = uploadFile(vo.getFilename().getOriginalFilename(), vo.getFilename().getBytes());
-		String mainfilename = uploadFile(vo.getMainfilename().getOriginalFilename(), vo.getMainfilename().getBytes());
-		us.upload(vo, mainfilename);
-	
-		return "main";
-	}*/
-	
-	@RequestMapping(value="/maindelete", method = RequestMethod.GET)
-	public String deletePost(AdminVO vo) throws Exception{
+	@ResponseBody
+	@RequestMapping(value="/uploadDel", method = RequestMethod.POST)
+	public int deletePost(@RequestParam(value = "chbox[]") List<String> chArr, AdminVO vo)throws Exception{
 		logger.info("delete+++++");
 		
-		us.maindelete(vo);
+		int result = 0;
+		int no = 0;
+		
+		for(String i : chArr) {
+			no = Integer.parseInt(i);
+			vo.setNo(no);
+			us.uploadDel(vo);
+		}
+		
+		result = 1;
 	
-		return "main_delete";
+		return result;
 	}
-	
-	/*<form>를 이용하여 파일 업로드*/
-	@RequestMapping(value="/uploadForm", method = RequestMethod.GET)
-	
-	public void uploadFormGet()
-	{
-		
-	}
-	
-	@RequestMapping(value="/uploadForm", method = RequestMethod.POST)
-	public String uploadFormPost(MultipartFile file, Model model) throws Exception {
-		logger.info("originalName = "+ file.getOriginalFilename());
-		logger.info("size = " + file.getSize());
-		logger.info("byte = " + file.getBytes());
-		logger.info("contentfile = " + file.getContentType());
-		
-		String saveName=uploadFile(file.getOriginalFilename(), file.getBytes());
-		model.addAttribute("saveName", saveName);
-		
-		return "uploadResult";
-		
-	}
-	
-	private String uploadFile(String originalName, byte[] fileData) throws Exception{
-		
-		UUID uid = UUID.randomUUID();//UUID는 범용 고유 식별자 (파일 이름을 식별할 수 있게 이름을 랜덤하게 해준다.)
-		
-		String saveName = uid.toString()+"_"+originalName;
-		
-		File targer = new File(uploadPath, saveName);//D:/upload/파일이름.제이피지.
-		
-		FileCopyUtils.copy(fileData, targer);//이름이 같은것을 타깃으로 고유 식별자를 붙이는 메소드
-		
-		return saveName;
-	}
-	
-	/*ajax를 이용한 파일 업로드*/
-	
+
 	@RequestMapping(value="/uploadAjax", method = RequestMethod.GET)
 	public void uploadAjax() {
 		logger.info("uploadGet : ");
@@ -423,27 +346,6 @@ public class UploadController {
 }
 
 
-	
-/*	@ResponseBody
-	@RequestMapping(value="/deleteFile", method=RequestMethod.POST)
-	public ResponseEntity<String> deleteFile(String fileName){
-		logger.info("delete file: " + fileName);
-		
-		String formatName =  fileName.substring(fileName.lastIndexOf(".")+1);
-		
-		MediaType mType = MimeMediaUtil.getMediaType(formatName);
-		
-		if(mType!=null) {
-			String front = fileName.substring(0,12);
-			String end = fileName.substring(14);
-			new File(uploadPath + (front+end).replace('/', File.separatorChar)).delete();
-		}
-			new File(uploadPath + fileName.replace('/', File.separatorChar)).delete();
-			
-			return new ResponseEntity<String>("deleted", HttpStatus.OK);
-	}
-
-}*/
 
 
 

@@ -46,7 +46,7 @@ public class UploadServiceImpl implements UploadService {
 			attach.setNo(vo.getNo());
 			
 			System.out.println("service attach.get"+ attach.getNo());
-			um2.upload2(attach);
+			um.upload1(attach);
 		});
 	}
 
@@ -64,8 +64,8 @@ public class UploadServiceImpl implements UploadService {
 	}
 
 	@Override
-	public void maindelete(AdminVO vo) throws Exception {
-		um.maindelete(vo);
+	public void uploadDel(AdminVO vo) throws Exception {
+		um.uploadDel(vo);
 		
 	}
 

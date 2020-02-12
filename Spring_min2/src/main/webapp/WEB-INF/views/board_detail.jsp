@@ -39,7 +39,7 @@
 	<tr><td>content</td><td>${detail.content}</td></tr>
 	<tr><td>date</td><td>${detail.write_date}</td></tr>
 	<tr><td>id</td><td>${detail.uid}</td></tr>
-	<tr><td>file</td><td><img src="displayFile?fileName=/${detail.file}"></td></tr>
+	<tr><td>file</td><td><img src="displayFile?fileName=/${detail.file}" width="300" height="300"></td></tr>
 	<tr>
 		<td colspan="2">
 		<c:if test="${vo!=null}">

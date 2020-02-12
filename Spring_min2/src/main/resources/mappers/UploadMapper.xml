@@ -17,16 +17,10 @@
 
 <select id="detail" resultType="com.min.model.AdminVO">
 
-	select p.no, name, max(filename) filename, max(uploadPath)uploadPath, max(uuid) uuid
+	select p.no, name, proexplain, amount, price, max(filename) filename, max(uploadPath)uploadPath, max(uuid) uuid
 	from product_tb as p, upload_tb as u
 	where p.no = u.no
     group by p.no;
-
-</select>
-
-<select id="detailupload" resultType="com.min.model.UploadVO">
-
-	select * from upload_tb
 
 </select>
 
@@ -38,16 +32,12 @@
 	
 </select>
 
-<insert id="addAttach">
+<delete id="uploadDel">
 
-	insert into attach_tb(file, no)
-	values(#{filename}, LAST_INSERT_ID())
-
-</insert>
-
-<delete id="maindelete">
-
-	delete from product_tb where no=${no};
+	delete p, u 
+	from product_tb as p 
+	left join upload_tb as u 
+	on p.no = u.no where p.no=${no};
 
 </delete>
 

@@ -25,7 +25,7 @@
 				</tr>
 			</table>
 		</c:if>
-		<c:if test="${vo!=null}">
+		<c:if test="${vo!=null}&&${vo.uid.equals('admin') }">
 			<table>
 				<tr>
 					<td><a href="information">${vo.uname}님 환영합니다.</a></td>
@@ -35,23 +35,23 @@
 				</tr>
 			</table>
 		</c:if>
+		<c:if test="${vo.uid.equals('admin')}">
+
+			<table>
+				<tr>
+					<td><a>${vo.uname}님 환영합니다.</a></td>
+					<td><a href="logout">logout</a></td>
+					<td><a href="register">register</a></td>
+					<td><a href="adminOrder">order</a></td>
+				</tr>
+			</table>
+	
+		</c:if>
 			<h1><a href="main">이달의 꽃</a></h1>
 			<p>A free responsive site template by</p>
 		</div>
 	</header>
 
-<c:if test="${vo.uid.equals('admin')}">
-
-	<table border="1">
-		<tr>
-			<td><a href="information">${vo.uname}님 환영합니다.</a></td>
-			<td><a href="adminpage">상품등록</a></td>
-			<td><a>cart</a></td>
-			<td><a href="#">구매상황</a></td>
-		</tr>
-	</table>
-
-</c:if>
 <div id="item">
 <table>
 
@@ -69,7 +69,7 @@
 		var str="";
 		
 			
-			var file=$("#path${status.count}").val()+"/"+$("#uuid${status.count}").val()+"_"+$("#filename${status.count}").val();
+			var file=$("#path${status.count}").val()+$("#uuid${status.count}").val()+"_"+$("#filename${status.count}").val();
 			
 			str = "<div>"+"<img src='display?filename="+file+"' width='300' height='300'>"+"<div>"
 			

@@ -15,7 +15,7 @@ public interface UploadService {
 	
 	public List<AdminVO> maindetail(int no) throws Exception;
 	
-	public void maindelete(AdminVO vo) throws Exception;
+	public void uploadDel(AdminVO vo) throws Exception;
 	
 	public void registerReply(BoardRepVO reply) throws Exception;
 	
