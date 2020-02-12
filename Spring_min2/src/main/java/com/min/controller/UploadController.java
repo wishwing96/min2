@@ -79,7 +79,7 @@ public class UploadController {
 	{
 		
 		List<UploadVO> list = new ArrayList<>();
-		String uploadFolder = "D:\\upload";
+		String uploadFolder = "C:\\upload";
 		
 		String uploadFolderPath = getFolder();
 		//make folder ------
@@ -133,7 +133,6 @@ public class UploadController {
 			
 			
 		} //end for
-		System.out.println("등록완료");
 		return new ResponseEntity<>(list, HttpStatus.OK);
 	}
 	
@@ -174,7 +173,7 @@ public class UploadController {
 		
 		logger.info("filename : " + filename);
 		
-		File file = new File("D:\\upload\\"+filename);
+		File file = new File("C:\\upload\\"+filename);
 		
 		logger.info("file : " + file);
 		
@@ -285,7 +284,7 @@ public class UploadController {
 	public ResponseEntity<byte[]> displayFile(String fileName) throws Exception{
 		InputStream in =null;
 		ResponseEntity<byte[]> entity = null;
-		File file = new File("D:\\upload\\"+fileName);
+		File file = new File("C:\\upload\\"+fileName);
 		logger.info("File Name:" + fileName);
 		
 		try {

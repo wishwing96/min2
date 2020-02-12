@@ -28,12 +28,6 @@ public class UploadMapperImpl implements UploadMapper{
 	}
 	
 	@Override
-	public void upload1(UploadVO upload) {
-		sqlSession.insert(namespace+".upload2", upload);
-		
-	}
-	
-	@Override
 	public List<AdminVO> detail() throws Exception {
 		List list = sqlSession.selectList(namespace+".detail");
 		return list;

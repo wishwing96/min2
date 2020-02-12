@@ -7,17 +7,24 @@
 
 <insert id="upload">
 
-	<selectKey resultType="int" keyProperty="no" order="BEFORE">
-	select  max(no)+1 from product_tb
-	</selectKey>
 	insert into product_tb(name, proexplain, amount, price)
 	values(#{name}, #{proexplain}, #{amount}, #{price})
+	<selectKey resultType="int" keyProperty="no" order="AFTER">
+	select last_insert_id()
+	</selectKey>
+	
+</insert>
+
+<insert id="upload2">
+
+	insert into upload_tb(filename, uploadPath, uuid, no)
+	values(#{filename}, #{uploadPath}, #{uuid}, #{no})	
 	
 </insert>
 
 <select id="detail" resultType="com.min.model.AdminVO">
 
-	select p.no, name, proexplain, amount, price, max(filename) filename, max(uploadPath)uploadPath, max(uuid) uuid
+	select p.no, name, proexplain, amount, price, filename, max(uploadPath)uploadPath, uuid
 	from product_tb as p, upload_tb as u
 	where p.no = u.no
     group by p.no;

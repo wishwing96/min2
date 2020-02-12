@@ -13,8 +13,6 @@ public interface UploadMapper {
 	
 	public void upload(AdminVO vo) throws Exception;
 	
-	public void upload1(UploadVO upload);
-	
 	public List<AdminVO> detail() throws Exception;
 	
 	public List<AdminVO> maindetail(int no) throws Exception;

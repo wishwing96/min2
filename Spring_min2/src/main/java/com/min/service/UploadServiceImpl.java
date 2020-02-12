@@ -38,15 +38,15 @@ public class UploadServiceImpl implements UploadService {
 		if(vo.getUploadvo() == null ||vo.getUploadvo().size() <=0) {
 			return;
 		}
-		System.out.println("등록(service단계)"+vo);
-		System.out.println("등록(service단계)"+vo.getNo());
+		System.out.println("등록(service단계)="+vo);
+		System.out.println("등록(service단계)="+vo.getNo());
 		vo.getUploadvo().forEach(attach ->{
-			System.out.println("service vo.get"+vo.getNo());
+			System.out.println("service vo.get="+vo.getNo());
 			
-			attach.setNo(vo.getNo());
+			attach.setNo(9);
 			
 			System.out.println("service attach.get"+ attach.getNo());
-			um.upload1(attach);
+			um2.upload2(attach);
 		});
 	}
 
