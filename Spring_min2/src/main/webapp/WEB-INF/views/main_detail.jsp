@@ -25,7 +25,7 @@
 						</tr>
 					</table>
 				</c:if>
-				<c:if test="${vo!=null}&&${vo.uid.equals('admin') }">
+				<c:if test="${vo!=null && vo.uid.equals('admin')==false}">
 					<table>
 						<tr>
 							<td><a href="information">${vo.uname}님 환영합니다.</a></td>
@@ -77,9 +77,10 @@
 		<option value="노랑">노랑</option>
 	</select>
 	</td></tr>
+	<tr><td>수량</td><td><input type="text" id="cartStock">개</td></tr>
 	<tr><td>설명</td><td>${us.proexplain }</td></tr>
 
-	<tr><th colspan="2"><a href="order?no=${us.no}">구매하기</a></th></tr>
+	<tr><th colspan="2"><a href="order?no=${us.no}">구매하기</a>||<input type="button" value="장바구니" id="cart"></th></tr>
 	</table>
 </div>
 

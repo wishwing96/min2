@@ -19,6 +19,27 @@ $(document).ready(function(){
 	
 	var gdsnum = $("#gdsnum").val();
 	
+	$("#cart").on("click",function(){
+		var cartStock = $("#cartStock").val();
+		
+		var data = {
+				num : gdsnum,
+				cartStock : cartStock
+		};
+		
+		$.ajax({
+			url : "cart",
+			type : "post",
+			data : data,
+			success : function(){
+				alert("카트담기 성공");
+			},
+			error : function(err){
+				alert("error");
+			}
+		})
+	})
+	
 	$("#reply").on("click", function(){
 		
 		var uid =  $("#uid").val();

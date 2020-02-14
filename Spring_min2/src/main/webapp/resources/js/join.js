@@ -50,7 +50,7 @@ $("#uemail2").keyup(function(){
 		var email1 = $("#uemail1").val();
 		var email2 = $("#uemail2").val();
 		var email = email1 +'@' + email2;
-		alert(email);
+		
 		$("#uemail").val(email);
 	})
 	

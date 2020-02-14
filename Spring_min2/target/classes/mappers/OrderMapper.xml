@@ -15,6 +15,7 @@
 	select*
 	from join_tb as j, order_tb as o
 	where j.uid = o.uid
+	and j.uid=#{uid}
 </select>
 
 <select id="adminOrder" resultType="com.min.model.OrderVO">

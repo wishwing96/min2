@@ -2,6 +2,9 @@ package com.min.controller;
 
 import java.text.DecimalFormat;
 import java.util.Calendar;
+import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.min.model.AdminVO;
+import com.min.model.CartVO;
 import com.min.model.OrderVO;
-import com.min.model.ReplyVO;
-import com.min.model.JoinVO;
+import com.min.model.UserVO;
+import com.min.service.CartService;
 import com.min.service.OrderService;
 import com.min.service.UploadService;
 
@@ -28,6 +33,8 @@ public class MainController {
 	private UploadService us;
 	@Autowired
 	private OrderService os;
+	@Autowired
+	private CartService cs;
 	
 	@RequestMapping(value="/main", method=RequestMethod.GET)
 	public String main(Model model, AdminVO vo) throws Exception{
@@ -80,8 +87,11 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/ordercheck", method=RequestMethod.GET)
-	public String ordercheck(Model model, JoinVO vo) throws Exception{
-		model.addAttribute("check", os.orderResult(vo));
+	public String ordercheck(Model model, HttpSession session, String uid) throws Exception{
+		UserVO user = (UserVO)session.getAttribute("vo");
+		uid = user.getUid();
+		
+		model.addAttribute("check", os.orderResult(uid));
 		
 		return "ordercheck";
 	}
@@ -104,6 +114,50 @@ public class MainController {
 			entity = new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 		return entity;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/cart", method=RequestMethod.POST)
+	public void addCart(CartVO cart, HttpSession session, String uid) throws Exception{
+		
+		UserVO user = (UserVO)session.getAttribute("vo");
+		uid = user.getUid();
+		
+		cs.addCart(cart, uid);
+		
+		
+		System.out.println("addCart");
+		//cs.addCart(cart);
+	}
+	
+	@RequestMapping(value="/cartList", method=RequestMethod.GET)
+	public void cartList(HttpSession session, Model model) throws Exception{
+		UserVO user = (UserVO)session.getAttribute("vo");
+		String uid = user.getUid();
+		
+		
+		List<CartVO> cart = cs.cart(uid);
+		System.out.println("cart list="+cart);
+		model.addAttribute("cart", cart);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/cartDel", method = RequestMethod.POST)
+	public int deletePost(@RequestParam(value = "chbox[]") List<String> chArr, CartVO cart)throws Exception{
+		System.out.println("delete 왓나요?");
+		
+		int result = 0;
+		int no = 0;
+		
+		for(String i : chArr) {
+			no = Integer.parseInt(i);
+			cart.setCartnum(no);
+			cs.cartDel(cart);
+		}
+		
+		result = 1;
+	
+		return result;
 	}
 
 }

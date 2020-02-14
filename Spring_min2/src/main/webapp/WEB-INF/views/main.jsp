@@ -25,12 +25,12 @@
 				</tr>
 			</table>
 		</c:if>
-		<c:if test="${vo!=null}&&${vo.uid.equals('admin') }">
+		<c:if test="${vo!=null && vo.uid.equals('admin')==false}">
 			<table>
 				<tr>
 					<td><a href="information">${vo.uname}님 환영합니다.</a></td>
 					<td><a href="logout">logout</a></td>
-					<td><a>cart</a></td>
+					<td><a href="cartList">cart</a></td>
 					<td><a href="board_list">board</a></td>
 				</tr>
 			</table>
@@ -67,13 +67,14 @@
 
 	$(document).ready(function(){
 		var str="";
-		
 			
 			var file=$("#path${status.count}").val()+$("#uuid${status.count}").val()+"_"+$("#filename${status.count}").val();
 			
-			str = "<div>"+"<img src='display?filename="+file+"' width='300' height='300'>"+"<div>"
+			str = "<div>"+"<img src='display?filename="+file+"' width='300' height='300'><div>"
 			
 			$(".img${status.count}").append(str);
+					
+			
 		
 	});
 	

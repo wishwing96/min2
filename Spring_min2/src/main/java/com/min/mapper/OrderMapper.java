@@ -9,7 +9,7 @@ public interface OrderMapper {
 	
 	public void order(OrderVO vo, String orderno, int state) throws Exception;
 	
-	public List<OrderVO> orderResult(JoinVO vo) throws Exception;
+	public List<OrderVO> orderResult(String uid) throws Exception;
 	
 	public List<OrderVO> adminOrder() throws Exception;
 	

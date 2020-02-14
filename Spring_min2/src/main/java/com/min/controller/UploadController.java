@@ -37,9 +37,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.min.model.AdminVO;
 import com.min.model.BoardRepVO;
-import com.min.model.Criteria;
-import com.min.model.PageVO;
-import com.min.model.ReplyVO;
 import com.min.model.UploadVO;
 import com.min.service.UploadService;
 import com.min.util.MimeMediaUtil;
@@ -144,15 +141,19 @@ public class UploadController {
 	}
 	
 	@RequestMapping(value="/adminpage", method = RequestMethod.POST)
-	public String adminpagePost(AdminVO vo) throws Exception
+	public String adminpagePost(AdminVO vo, String file) throws Exception
 	{
 		logger.info("adminpage Post!!!!!!!!!!");
 		if(vo.getUploadvo() != null) {
-			System.out.println("aaaaaa");
-			vo.getUploadvo().forEach(attach -> logger.info(""+attach));			
+			vo.getUploadvo().forEach(attach -> logger.info("여기에 이거는 뭔가요?"+attach));
+			
+			file = vo.getUploadvo().get(0).getUploadPath()+
+						vo.getUploadvo().get(0).getUuid()+"_"+
+						vo.getUploadvo().get(0).getFilename();
+			 logger.info("파일이 제대로 들어갔나요?"+file);
 		}
 		
-		us.upload(vo);
+		us.upload(vo, file);
 		System.out.println("bbbb");
 		
 		

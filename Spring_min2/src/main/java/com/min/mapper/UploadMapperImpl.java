@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 import com.min.model.AdminVO;
 import com.min.model.BoardRepVO;
-import com.min.model.Criteria;
 import com.min.model.UploadVO;
 
 @Repository
@@ -23,8 +22,11 @@ public class UploadMapperImpl implements UploadMapper{
 	
 	@Override
 	//public void upload(AdminVO vo, String filename, String mainfilename) throws Exception {
-	public void upload(AdminVO vo) throws Exception {
-		sqlSession.insert(namespace+".upload", vo);
+	public void upload(AdminVO vo, String file) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("file", file);
+		paramMap.put("vo", vo);
+		sqlSession.insert(namespace+".upload", paramMap);
 	}
 	
 	@Override

@@ -32,14 +32,15 @@ public class OrderMapperImpl implements OrderMapper {
 	}
 
 	@Override
-	public List<OrderVO> orderResult(JoinVO vo) throws Exception {
-		List list = sqlSession.selectList(namespace+".orderResult", vo);
-		System.out.println("Join="+ vo);
+	public List<OrderVO> orderResult(String uid) throws Exception {
+		List list = sqlSession.selectList(namespace+".orderResult", uid);
+		System.out.println("Join="+ uid);
 		return list;
 	}
 
 	@Override
 	public List<OrderVO> adminOrder() throws Exception {
+		
 		List list = sqlSession.selectList(namespace+".adminOrder");
 		return list;
 	}

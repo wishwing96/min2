@@ -7,9 +7,9 @@
 
 <insert id="upload">
 
-	insert into product_tb(name, proexplain, amount, price)
-	values(#{name}, #{proexplain}, #{amount}, #{price})
-	<selectKey resultType="int" keyProperty="no" order="AFTER">
+	insert into product_tb(name, proexplain, file, amount, price)
+	values(#{vo.name}, #{vo.proexplain}, #{file}, #{vo.amount}, #{vo.price})
+	<selectKey resultType="int" keyProperty="vo.no" order="AFTER">
 	select last_insert_id()
 	</selectKey>
 	

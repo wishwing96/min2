@@ -21,9 +21,9 @@ public class OrderServiceImpl implements OrderService{
 		om.order(vo, orderno, state);
 	}
 	@Override
-	public List<OrderVO> orderResult(JoinVO vo) throws Exception {
-		System.out.println("list="+om.orderResult(vo));
-		return om.orderResult(vo);
+	public List<OrderVO> orderResult(String uid) throws Exception {
+		System.out.println("list="+om.orderResult(uid));
+		return om.orderResult(uid);
 		
 	}
 	@Override

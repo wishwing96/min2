@@ -16,7 +16,6 @@ import com.min.mapper.Upload2Mapper;
 import com.min.mapper.UploadMapper;
 import com.min.model.AdminVO;
 import com.min.model.BoardRepVO;
-import com.min.model.Criteria;
 import com.min.model.UploadVO;
 
 @Service
@@ -31,8 +30,8 @@ public class UploadServiceImpl implements UploadService {
 	
 	@Transactional
 	@Override
-	public void upload(AdminVO vo) throws Exception{
-		um.upload(vo);
+	public void upload(AdminVO vo, String file) throws Exception{
+		um.upload(vo, file);
 		
 		
 		if(vo.getUploadvo() == null ||vo.getUploadvo().size() <=0) {
@@ -43,7 +42,7 @@ public class UploadServiceImpl implements UploadService {
 		vo.getUploadvo().forEach(attach ->{
 			System.out.println("service vo.get="+vo.getNo());
 			
-			attach.setNo(9);
+			attach.setNo(vo.getNo());
 			
 			System.out.println("service attach.get"+ attach.getNo());
 			um2.upload2(attach);

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.min.mapper.CartMapper">
+
+<insert id="addCart">
+	insert into cart_tb(uid, num, cartStock, addDate) 
+	values(#{uid}, #{cart.num}, #{cart.cartStock}, sysdate());
+</insert>
+
+<select id="cart" resultType="com.min.model.CartVO">
+	select *
+	from cart_tb as c, product_tb as p
+	where c.num = p.no
+	and uid=#{uid};
+</select>
+
+<delete id="cartDel">
+	delete from cart_tb
+	where cartnum = #{cartnum};
+</delete>
+
+</mapper>
