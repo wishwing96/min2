@@ -12,10 +12,10 @@
 
 
 <select id="orderResult" resultType="com.min.model.OrderVO">
-	select*
-	from join_tb as j, order_tb as o
-	where j.uid = o.uid
-	and j.uid=#{uid}
+	select *
+	from delivery as d, order_tb as o
+	where d.state = o.state
+    and o.uid=#{uid}
 </select>
 
 <select id="adminOrder" resultType="com.min.model.OrderVO">

@@ -4,7 +4,6 @@
 $(document).ready(function(){
 
 	
-	
 	$("#delete").click(function(){
 			
 			if(confirm("제품을 삭제 하시겠습니까?")){

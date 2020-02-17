@@ -162,9 +162,8 @@ public class MainController {
 		return result;
 	}
 	
-	@ResponseBody
 	@RequestMapping(value="/cartList", method = RequestMethod.POST)
-	public void cartBuyPost(OrderVO vo, Model model)throws Exception{
+	public String cartBuyPost(OrderVO vo, Model model)throws Exception{
 		System.out.println("cartBuy 왓나요?");
 		
 		Calendar cal = Calendar.getInstance();
@@ -180,10 +179,12 @@ public class MainController {
 		 String orderno = ymd + "_" + subNum;
 		 
 		 int state = 0;
-
+		 System.out.println("구매정보가 어떤가요??"+vo);
 		cs.cartBuy(vo, orderno, state);
 		System.out.println("구매 테이블에 정보가 들어갔나요?");
+		 model.addAttribute("result", vo);
 		
+		return "orderResult";
 	}
 	
 

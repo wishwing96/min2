@@ -24,13 +24,29 @@
 				<tr>
 					<td><img src="display?filename=${cart.file }" width='300' height='300'></td><td>${cart.name }</td>
 					<td>${cart.cartStock }</td><td>${cart.price }</td>
-					<td><input type="checkbox" name="chBox" class="chBox${num }" data-price="${cart.price }" value="${cart.name }"></td>
+					<td><input type="checkbox" name="chBox" class="chBox" data-cartnum="${cart.cartnum }" 
+						data-cartStock="${cart.cartStock }" data-price="${cart.price }" value="${cart.name }"></td>
 				</tr>
-				
-				<div class="price"></div>
-				<div class="name"></div>
-				
+			<c:set var="num" value="${num+1}"></c:set>
+		</c:forEach>
+	
+
+	<tr><td colspan="4"><div class="price"></div></td><td><input type="button" value="구매 정보 입력" id="buy"></td></tr>
+	<tr>
+		<td><input type="hidden" name="uid" value="${vo.uid}">${vo.uid}</td>
+		<td>주소:<input type="text" name="uaddress" value="${vo.uaddress }"></td>
+		<td>tel:<input type="text" name="uphone" value="${vo.uphone }"></td>
+		<td><input type="submit" value="구매"></td>
+	</tr>
+	
+
+	</table>
+	
 	<script>
+	
+		$("#buy").click(function(){
+			$(".orderInfo").slideDown();
+		})
 		
 		$(document).ready(function(){
 			$("#buy").click(function(){
@@ -42,11 +58,11 @@
 					var str1="";
 					var str2="";
 					
-					$("input[class='chBox${num}']:checked").each(function(){
-						price = price + parseInt($(this).attr("data-price"));
-						name = name + $(this).val();
-						str1 = "<input type='text' value='"+price+"' name='price'>";
-						str2 = "<input type='text' value='"+name+"' name='name'>"
+					$("input[class='chBox']:checked").each(function(){
+						price = price + parseInt($(this).attr("data-price")*$(this).attr("data-cartStock"));
+						name = name +"/"+ $(this).val();
+						str1 = "<input type='text' value='"+price+"' name='price' readonly>원";
+						str2 = "<input type='hidden' value='"+name+"' name='name'>"
 						
 					});
 					$(".price").append(str1);
@@ -57,20 +73,7 @@
 		});
 		
 	</script>
-			
-			<c:set var="num" value="${num+1}"></c:set>
-		</c:forEach>
-	
-
-	<tr><td colspan="4"></td><td><input type="button" value="buy" id="buy"></td></tr>
-	<tr>
-		<td><input type="hidden" name="uid" value="${vo.uid}">${vo.uid}</td>
-		<td>주소:<input type="text" name="uaddress" value="${vo.uaddress }"></td>
-		<td>tel:<input type="text" name="uphone" value="${vo.uphone }"></td>
-		<td><input type="submit" value="구매"></td>
-	</tr>
-
-</table>
+	<div class="name"></div>
 </form>
 </body>
 </html>
