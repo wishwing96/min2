@@ -126,14 +126,6 @@ $("#emailcheck1").blur(function(){
 		
 	});
 
-$("#addr3").keyup(function(){
-	var addr1 = $("#addr1").val();
-	var addr2 = $("#addr2").val();
-	var addr3 = $("#addr3").val();
-	var uaddress = "우편 번호:"+addr1+
-					"주소:"+addr2+addr3;
-	$("#uaddress").val(uaddress);
-})
 
 
 $("#phone3").keyup(function(){

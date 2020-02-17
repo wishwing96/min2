@@ -57,7 +57,7 @@
 
 <select id="replyList" resultType="com.min.model.BoardRepVO">
 	
-	select * from reply_tb
+	select * from reply_tb where gdsnum=#{gdsnum}
 
 </select>
 

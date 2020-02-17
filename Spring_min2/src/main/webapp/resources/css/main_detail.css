@@ -13,3 +13,13 @@ img{
 	bacground-color:white;
 	
 }
+
+.detailImg{
+	text-align: center;
+	margin-top: 20px;
+}
+table{
+	border-collapse:collapse ;
+	width:100%;
+	text-align: center;
+}

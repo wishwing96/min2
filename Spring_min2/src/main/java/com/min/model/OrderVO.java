@@ -5,10 +5,12 @@ public class OrderVO {
 	private String orderno;
 	private String name;
     private String uid;
-    private String uaddress;
+    private int address1;
+    private String address2;
+    private String address3;
     private String uphone;
     private int price;
-    private String opt;
+    private int stock;
     private int state;
     private String msg;
 	public String getOrderno() {
@@ -29,11 +31,23 @@ public class OrderVO {
 	public void setUid(String uid) {
 		this.uid = uid;
 	}
-	public String getUaddress() {
-		return uaddress;
+	public int getAddress1() {
+		return address1;
 	}
-	public void setUaddress(String uaddress) {
-		this.uaddress = uaddress;
+	public void setAddress1(int address1) {
+		this.address1 = address1;
+	}
+	public String getAddress2() {
+		return address2;
+	}
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+	public String getAddress3() {
+		return address3;
+	}
+	public void setAddress3(String address3) {
+		this.address3 = address3;
 	}
 	public String getUphone() {
 		return uphone;
@@ -47,11 +61,11 @@ public class OrderVO {
 	public void setPrice(int price) {
 		this.price = price;
 	}
-	public String getOpt() {
-		return opt;
+	public int getStock() {
+		return stock;
 	}
-	public void setOpt(String opt) {
-		this.opt = opt;
+	public void setStock(int stock) {
+		this.stock = stock;
 	}
 	public int getState() {
 		return state;
@@ -67,10 +81,11 @@ public class OrderVO {
 	}
 	@Override
 	public String toString() {
-		return "OrderVO [orderno=" + orderno + ", name=" + name + ", uid=" + uid + ", uaddress=" + uaddress
-				+ ", uphone=" + uphone + ", price=" + price + ", opt=" + opt + ", state=" + state + ", msg=" + msg
-				+ "]";
+		return "OrderVO [orderno=" + orderno + ", name=" + name + ", uid=" + uid + ", address1=" + address1
+				+ ", address2=" + address2 + ", address3=" + address3 + ", uphone=" + uphone + ", price=" + price
+				+ ", stock=" + stock + ", state=" + state + ", msg=" + msg + "]";
 	}
+	
     
 
 	

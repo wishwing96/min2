@@ -7,10 +7,11 @@ public class UserVO {
 	private String uname;
 	private int upoint;
 	private String uphone;
-	private String uaddress;
+	private int address1;
+	private String address2;
+	private String address3;
 	private String uemail;
 	private int number;
-	
 	public String getUid() {
 		return uid;
 	}
@@ -41,11 +42,23 @@ public class UserVO {
 	public void setUphone(String uphone) {
 		this.uphone = uphone;
 	}
-	public String getUaddress() {
-		return uaddress;
+	public int getAddress1() {
+		return address1;
 	}
-	public void setUaddress(String uaddress) {
-		this.uaddress = uaddress;
+	public void setAddress1(int address1) {
+		this.address1 = address1;
+	}
+	public String getAddress2() {
+		return address2;
+	}
+	public void setAddress2(String address2) {
+		this.address2 = address2;
+	}
+	public String getAddress3() {
+		return address3;
+	}
+	public void setAddress3(String address3) {
+		this.address3 = address3;
 	}
 	public String getUemail() {
 		return uemail;
@@ -62,7 +75,10 @@ public class UserVO {
 	@Override
 	public String toString() {
 		return "UserVO [uid=" + uid + ", upw=" + upw + ", uname=" + uname + ", upoint=" + upoint + ", uphone=" + uphone
-				+ ", uaddress=" + uaddress + ", uemail=" + uemail + ", number=" + number + "]";
+				+ ", address1=" + address1 + ", address2=" + address2 + ", address3=" + address3 + ", uemail=" + uemail
+				+ ", number=" + number + "]";
 	}
+	
+	
 
 }

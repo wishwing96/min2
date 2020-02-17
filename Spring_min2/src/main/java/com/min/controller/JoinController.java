@@ -91,7 +91,6 @@ public class JoinController {
 	public String informationGET() throws Exception {
 		System.out.println("information get=========");
 		
-		
 		return "information";
 	}
 	

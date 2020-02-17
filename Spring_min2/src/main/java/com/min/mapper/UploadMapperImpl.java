@@ -57,6 +57,7 @@ public class UploadMapperImpl implements UploadMapper{
 	@Override
 	public List<BoardRepVO> replyList(int gdsnum) throws Exception {
 		List list = sqlSession.selectList(namespace+".replyList", gdsnum);
+		System.out.println("reply mapper=="+list);
 		return list;
 	}
 

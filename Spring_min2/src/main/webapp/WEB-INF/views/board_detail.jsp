@@ -18,14 +18,38 @@
 
 <header id="header" class="alt">
 	<div class="inner">
-		<table>
-			<tr>
-				<td><a href="login">login</a></td>
-				<td><a href="join">join</a></td>
-				<td><a href="cart">cart</a></td>
-				<td><a href="board_list">board</a></td>
-			</tr>
-		</table>
+				<c:if test="${vo==null}">
+			<table>
+				<tr>
+					<td><a href="login">login</a></td>
+					<td><a href="join">join</a></td>
+					<td><a href="login">cart</a></td>
+					<td><a href="board_list">board</a></td>
+				</tr>
+			</table>
+		</c:if>
+		<c:if test="${vo!=null && vo.uid.equals('admin')==false}">
+			<table>
+				<tr>
+					<td><a href="information">${vo.uname}님 환영합니다.</a></td>
+					<td><a href="logout">logout</a></td>
+					<td><a href="cartList">cart</a></td>
+					<td><a href="board_list">board</a></td>
+				</tr>
+			</table>
+		</c:if>
+		<c:if test="${vo.uid.equals('admin')}">
+
+			<table>
+				<tr>
+					<td><a>${vo.uname}님 환영합니다.</a></td>
+					<td><a href="logout">logout</a></td>
+					<td><a href="register">register</a></td>
+					<td><a href="adminOrder">order</a></td>
+				</tr>
+			</table>
+	
+		</c:if>
 		<h1><a href="main">이달의 꽃</a></h1>
 		<p>A free responsive site template by</p>
 	</div>

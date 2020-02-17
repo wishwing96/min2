@@ -12,7 +12,17 @@ public class AdminVO {
 	private int amount;
 	private String proexplain;
 	private int price;
+	private int stock;
 	
+	
+	
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+
 	private String filename;
 
 	private String uploadPath;
@@ -85,8 +95,8 @@ public class AdminVO {
 	@Override
 	public String toString() {
 		return "AdminVO [no=" + no + ", name=" + name + ", uploadvo=" + uploadvo + ", amount=" + amount
-				+ ", proexplain=" + proexplain + ", price=" + price + ", filename=" + filename + ", uploadPath="
-				+ uploadPath + ", uuid=" + uuid + ", image=" + image + "]";
+				+ ", proexplain=" + proexplain + ", price=" + price + ", stock=" + stock + ", filename=" + filename
+				+ ", uploadPath=" + uploadPath + ", uuid=" + uuid + ", image=" + image + "]";
 	}
 
 

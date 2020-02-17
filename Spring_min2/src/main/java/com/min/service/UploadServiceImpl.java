@@ -76,6 +76,7 @@ public class UploadServiceImpl implements UploadService {
 
 	@Override
 	public List<BoardRepVO> replyList(int gdsnum) throws Exception {
+		System.out.println("replyservice=="+um.replyList(gdsnum));
 		return um.replyList(gdsnum);
 	}
 

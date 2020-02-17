@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,18 +15,42 @@
 <body>
 
 <header id="header" class="alt">
-	<div class="inner">
-		<table>
-			<tr>
-				<td><a href="login">login</a></td>
-				<td><a href="join">join</a></td>
-				<td><a href="cart">cart</a></td>
-				<td><a href="board_list">board</a></td>
-			</tr>
-		</table>
+		<div class="inner">
+		<c:if test="${vo==null}">
+			<table>
+				<tr>
+					<td><a href="login">login</a></td>
+					<td><a href="join">join</a></td>
+					<td><a href="login">cart</a></td>
+					<td><a href="board_list">board</a></td>
+				</tr>
+			</table>
+		</c:if>
+		<c:if test="${vo!=null && vo.uid.equals('admin')==false}">
+			<table>
+				<tr>
+					<td><a href="information">${vo.uname}님 환영합니다.</a></td>
+					<td><a href="logout">logout</a></td>
+					<td><a href="cartList">cart</a></td>
+					<td><a href="board_list">board</a></td>
+				</tr>
+			</table>
+		</c:if>
+		<c:if test="${vo.uid.equals('admin')}">
+
+			<table>
+				<tr>
+					<td><a>${vo.uname}님 환영합니다.</a></td>
+					<td><a href="logout">logout</a></td>
+					<td><a href="register">register</a></td>
+					<td><a href="adminOrder">order</a></td>
+				</tr>
+			</table>
+	
+		</c:if>
 		<h1><a href="main">이달의 꽃</a></h1>
 		<p>A free responsive site template by</p>
-	</div>
+		</div>
 </header>
 
 <div id="all">
@@ -70,7 +95,7 @@
 				<table>
 				
 					<tr>
-						<td><input type="text" placeholder="우편번호" id="addr1" readonly="readonly" ></td>
+						<td><input type="text" placeholder="우편번호" id="addr1" name="address1" readonly="readonly" ></td>
 						<td><button type="button" id="address">
 							<i class="fa fa-search"></i> 
 						우편번호 찾기</button></td>
@@ -78,14 +103,14 @@
 					
 					<tr>
 					
-						<td> <input placeholder="도로명 주소" id="addr2" type="text" readonly="readonly" /></td>
+						<td> <input placeholder="도로명 주소" id="addr2" name="address2" type="text" readonly="readonly" /></td>
 					
 					</tr>
 					
 					<tr>
 					
 						<td>
-							<input class="form-control" placeholder="상세주소" id="addr3" type="text"  />
+							<input class="form-control" placeholder="상세주소" id="addr3" name="address3" type="text"  />
 							<input type="hidden" id="uaddress" name="uaddress">						
 						</td>
 					

@@ -230,3 +230,12 @@ table{
 	border-collapse:collapse ;
 	width:100%;
 }
+
+
+#item{
+	width: 245px;
+    height: 500px;
+    display: inline-block;
+    padding-left: 100px;
+    padding-top : 20px;
+}

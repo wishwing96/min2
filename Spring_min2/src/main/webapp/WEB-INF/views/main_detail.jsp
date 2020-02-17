@@ -13,45 +13,45 @@
 </head>
 <body>
 		<!-- Header -->
-			<header id="header" class="alt">
-				<div class="inner">
-				<c:if test="${vo==null}">
-					<table>
-						<tr>
-							<td><a href="login">login</a></td>
-							<td><a href="join">join</a></td>
-							<td><a>cart</a></td>
-							<td><a href="board_list">board</a></td>
-						</tr>
-					</table>
-				</c:if>
-				<c:if test="${vo!=null && vo.uid.equals('admin')==false}">
-					<table>
-						<tr>
-							<td><a href="information">${vo.uname}님 환영합니다.</a></td>
-							<td><a href="logout">logout</a></td>
-							<td><a>cart</a></td>
-							<td><a href="board_list">board</a></td>
-						</tr>
-					</table>
-				</c:if>
-				<c:if test="${vo.uid.equals('admin')}">
+<header id="header" class="alt">
+		<div class="inner">
+		<c:if test="${vo==null}">
+			<table>
+				<tr>
+					<td><a href="login">login</a></td>
+					<td><a href="join">join</a></td>
+					<td><a href="login">cart</a></td>
+					<td><a href="board_list">board</a></td>
+				</tr>
+			</table>
+		</c:if>
+		<c:if test="${vo!=null && vo.uid.equals('admin')==false}">
+			<table>
+				<tr>
+					<td><a href="information">${vo.uname}님 환영합니다.</a></td>
+					<td><a href="logout">logout</a></td>
+					<td><a href="cartList">cart</a></td>
+					<td><a href="board_list">board</a></td>
+				</tr>
+			</table>
+		</c:if>
+		<c:if test="${vo.uid.equals('admin')}">
 
-					<table>
-						<tr>
-							<td><a>${vo.uname}님 환영합니다.</a></td>
-							<td><a href="logout">logout</a></td>
-							<td><a href="register">register</a></td>
-							<td><a href="adminOrder">order</a></td>
-						</tr>
-					</table>
-		
-				</c:if>
-					<h1><a href="main">이달의 꽃</a></h1>
-					<p>A free responsive site template by</p>
-				</div>
-			</header>
+			<table>
+				<tr>
+					<td><a>${vo.uname}님 환영합니다.</a></td>
+					<td><a href="logout">logout</a></td>
+					<td><a href="register">register</a></td>
+					<td><a href="adminOrder">order</a></td>
+				</tr>
+			</table>
 	
+		</c:if>
+		<h1><a href="main">이달의 꽃</a></h1>
+		<p>A free responsive site template by</p>
+		</div>
+</header>
+
 <form method="post" name="form1">
 <c:forEach items="${file}" var="file" varStatus="status">
 
@@ -68,19 +68,10 @@
 	<table>
 	<tr><td>꽃 종류</td><td>${us.name}</td></tr>
 	<tr><td>가격</td><td>${us.price }원</td></tr>
-	<tr><td>포장색상</td>
-	<td>
-	<select id="opt">
-		<option value="1">선택</option>
-		<option value="분홍">분홍</option>
-		<option value="보라">보라</option>
-		<option value="노랑">노랑</option>
-	</select>
-	</td></tr>
-	<tr><td>수량</td><td><input type="text" id="cartStock">개</td></tr>
 	<tr><td>설명</td><td>${us.proexplain }</td></tr>
 
 	<tr><th colspan="2"><a href="order?no=${us.no}">구매하기</a>||<input type="button" value="장바구니" id="cart"></th></tr>
+	<tr><td colspan="2"><div class="replies"></div></td></tr>
 	</table>
 </div>
 
@@ -98,14 +89,6 @@
 			
 		</table>
 	</c:if>
-		
-		
-<table>
-
-	<tr><td><div class="replies"></div></td></tr>
-	
-</table>
-
 
 </form>
 </body>

@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="resources/css/join.css">
-<link rel="stylesheet" type="text/css" href="resources/css/login.css">
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/js/adminOrder.js"></script>
 </head>
@@ -15,26 +14,38 @@
 		<!-- Header -->
 			<header id="header" class="alt">
 				<div class="inner">
-				<c:if test="${vo==null}">
-					<table>
-						<tr>
-							<td><a href="login">login</a></td>
-							<td><a href="join">join</a></td>
-							<td><a>cart</a></td>
-							<td><a href="board_list">board</a></td>
-						</tr>
-					</table>
-				</c:if>
-				<c:if test="${vo!=null}">
-					<table>
-						<tr>
-							<td><a href="information">${vo.uname}님 환영합니다.</a></td>
-							<td><a href="logout">logout</a></td>
-							<td><a>cart</a></td>
-							<td><a href="board_list">board</a></td>
-						</tr>
-					</table>
-				</c:if>
+						<c:if test="${vo==null}">
+			<table>
+				<tr>
+					<td><a href="login">login</a></td>
+					<td><a href="join">join</a></td>
+					<td><a href="login">cart</a></td>
+					<td><a href="board_list">board</a></td>
+				</tr>
+			</table>
+		</c:if>
+		<c:if test="${vo!=null && vo.uid.equals('admin')==false}">
+			<table>
+				<tr>
+					<td><a href="information">${vo.uname}님 환영합니다.</a></td>
+					<td><a href="logout">logout</a></td>
+					<td><a href="cartList">cart</a></td>
+					<td><a href="board_list">board</a></td>
+				</tr>
+			</table>
+		</c:if>
+		<c:if test="${vo.uid.equals('admin')}">
+
+			<table>
+				<tr>
+					<td><a>${vo.uname}님 환영합니다.</a></td>
+					<td><a href="logout">logout</a></td>
+					<td><a href="register">register</a></td>
+					<td><a href="adminOrder">order</a></td>
+				</tr>
+			</table>
+	
+		</c:if>
 					<h1><a href="main">이달의 꽃</a></h1>
 					<p>A free responsive site template by</p>
 				</div>
@@ -68,8 +79,10 @@
 					${order.orderno }</td>
 				<td>${order.name }</td>
 				<td>${order.uid }</td>
-				<td>${order.opt }</td>
-				<td>${order.uaddress }</td>
+				<td>${order.stock }</td>
+				<td>우편 번호:${order.address1 }<br>
+					주소: ${order.address2 }<br>
+					상세 주소: ${order.address3 }</td>
 				<td>${order.uphone }</td>
 				<td>${order.msg }</td>
 			</tr>

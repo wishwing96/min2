@@ -10,7 +10,7 @@ public class BoardRepVO {
     
     private String repcon;
     
-    private String repdata;
+    private String repdate;
 
 	public int getGdsnum() {
 		return gdsnum;
@@ -44,18 +44,18 @@ public class BoardRepVO {
 		this.repcon = repcon;
 	}
 
-	public String getRepdata() {
-		return repdata;
+	public String getRepdate() {
+		return repdate;
 	}
 
 	public void setRepdata(String repdata) {
-		this.repdata = repdata;
+		this.repdate = repdata;
 	}
 
 	@Override
 	public String toString() {
 		return "BoardRepVO [gdsnum=" + gdsnum + ", uid=" + uid + ", repnum=" + repnum + ", repcon=" + repcon
-				+ ", repdata=" + repdata + "]";
+				+ ", repdate=" + repdate + "]";
 	}
 
 }

@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/js/cartList.js"></script>
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="/resources/js/addressapi.js"></script>
 </head>
 <body>
 
@@ -34,7 +36,31 @@
 	<tr><td colspan="4"><div class="price"></div></td><td><input type="button" value="구매 정보 입력" id="buy"></td></tr>
 	<tr>
 		<td><input type="hidden" name="uid" value="${vo.uid}">${vo.uid}</td>
-		<td>주소:<input type="text" name="uaddress" value="${vo.uaddress }"></td>
+		<table>
+				
+					<tr>
+						<td><input type="text" value="${vo.address1 }" id="addr1" name="address1" readonly="readonly" ></td>
+						<td><button type="button" id="address">
+							<i class="fa fa-search"></i> 
+						우편번호 찾기</button></td>
+					</tr>
+					
+					<tr>
+					
+						<td> <input value="${vo.address2 }" id="addr2" name="address2" type="text" readonly="readonly" /></td>
+					
+					</tr>
+					
+					<tr>
+					
+						<td>
+							<input class="form-control" value="${vo.address3 }" id="addr3" name="address3" type="text"  />
+							<input type="hidden" id="uaddress" name="uaddress">						
+						</td>
+					
+					</tr>
+				
+				</table>
 		<td>tel:<input type="text" name="uphone" value="${vo.uphone }"></td>
 		<td><input type="submit" value="구매"></td>
 	</tr>
@@ -43,6 +69,37 @@
 	</table>
 	
 	<script>
+	
+	$("#address").on("click", function(){
+		 new daum.Postcode({
+	        oncomplete: function(data) {
+
+	           var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+	           var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+	           if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+	               extraRoadAddr += data.bname;
+	           }
+	           if(data.buildingName !== '' && data.apartment === 'Y'){
+	              extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+	           }
+	           if(extraRoadAddr !== ''){
+	               extraRoadAddr = ' (' + extraRoadAddr + ')';
+	           }
+	           if(fullRoadAddr !== ''){
+	               fullRoadAddr += extraRoadAddr;
+	           }
+
+	           console.log(data.zonecode);
+	           console.log(fullRoadAddr);
+	           
+	           
+	           $("[id=addr1]").val(data.zonecode);
+	           $("[id=addr2]").val(fullRoadAddr);
+	           
+	       }
+	    }).open();
+	});
 	
 		$("#buy").click(function(){
 			$(".orderInfo").slideDown();

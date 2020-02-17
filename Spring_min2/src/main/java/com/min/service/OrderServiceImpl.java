@@ -16,9 +16,9 @@ public class OrderServiceImpl implements OrderService{
 	@Autowired
 	OrderMapper om;
 	@Override
-	public void order(OrderVO vo, String orderno, int state) throws Exception {
+	public void order(OrderVO vo, String orderno, int state, int stock) throws Exception {
 
-		om.order(vo, orderno, state);
+		om.order(vo, orderno, state, stock);
 	}
 	@Override
 	public List<OrderVO> orderResult(String uid) throws Exception {

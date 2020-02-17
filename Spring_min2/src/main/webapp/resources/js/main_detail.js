@@ -11,7 +11,7 @@ $(document).ready(function(){
 	for(var i=1; i<=$("#num").val(); i++){
 	
 		array[i] = $("#path"+i).val()+"/"+$("#uuid"+i).val()+"_"+$("#filename"+i).val()
-		str = "<div>"+"<img src='display?filename="+array[i]+"' width='300' height='300'>"+"<div>"
+		str = "<div class='detailImg'>"+"<img src='display?filename="+array[i]+"' width='300' height='300'>"+"<div>"
 		
 		$(".img").append(str);
 	
@@ -66,10 +66,11 @@ var str2="";
 	$.getJSON("replyList/"+gdsnum, function(data){
 		$(data).each(
 			function(){
-				str2 += "<tr><td>"+"<li data-repnum='"+this.repnum+"'class='replyLi'>"
-				+ this.repcon +"</td><td>"+this.uid +"</td><td>"+this.repdate
-				+"</td><td>"+"<input type='button' value='delete' id='delete'>"
-				+"</li>"+"</td></tr>"
+				str2 += "<table><tr><td><input type='hidden' value='"+this.repnum+"'>"
+				+"</td><td>" +this.repcon +"</td><td>"+this.uid 
+				+"</td><td>"+ this.repdate
+				+"</td><td><input type='button' value='delete' id='delete'>"
+				+"</td></tr></table>"
 			});
 			
 			$(".replies").html(str2);
@@ -77,36 +78,8 @@ var str2="";
 
 	$("#delete").on("click", function(){
 		alert("aaaa");
-		/*var rno = $(".model-title").html();
-		var replytext = $("#replytext").val();
-		
-		$.ajax({
-			type:"delete",
-			url:"../replies/"+rno,
-			contentType:"application/json",
-			dataType:"text",
-			data:JSON.stringify({replytext:replytext}),
-			success:function(data){
-				alert("OK");
-				$("#modDiv").hide("slow");
-				getAllList();
-			},
-			error : function(err){
-				alert("error");
-			}
-		});*/
-	});
-	
-	$("#opt").blur(function(){
-		var opt = $("#opt").val();
-		if(opt=="1"){
-			opt="";
-		}
-		alert("opt="+opt);
-	})
-	
 
-	
+	});	
 	
 })
 

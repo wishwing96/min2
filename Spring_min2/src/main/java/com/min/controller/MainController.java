@@ -54,14 +54,14 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/order", method=RequestMethod.GET)
-	public void order(@RequestParam int no, Model model) throws Exception{
+	public void order(@RequestParam int no, Model model, AdminVO admin) throws Exception{
 		System.out.println("order controller="+ us.maindetail(no));
 		model.addAttribute("order", us.maindetail(no).get(0));
-
+		
 	}
 	
 	@RequestMapping(value="/order", method=RequestMethod.POST)
-	public String orderpost(OrderVO vo, Model model) throws Exception{
+	public String orderpost(AdminVO admin, OrderVO vo, Model model) throws Exception{
 		
 		Calendar cal = Calendar.getInstance();
 		 int year = cal.get(Calendar.YEAR);
@@ -74,10 +74,10 @@ public class MainController {
 		 }
 		 
 		 String orderno = ymd + "_" + subNum;
-		 
 		 int state = 0;
-		 
-		 os.order(vo, orderno, state);
+		 int stock = admin.getStock();
+		 System.out.println("stock="+stock);
+		 os.order(vo, orderno, state, stock);
 		 model.addAttribute("result", vo);
 		
 		return "orderResult";

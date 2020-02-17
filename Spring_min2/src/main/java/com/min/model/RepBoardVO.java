@@ -10,7 +10,7 @@ public class RepBoardVO {
     //writer varchar(50)
 	private String writer;
 	//regdate timestamp
-	private String regdate;
+	private String repdate;
     //viewcnt int
 	private int viewcnt;
 	public int getBno() {
@@ -37,11 +37,11 @@ public class RepBoardVO {
 	public void setWriter(String writer) {
 		this.writer = writer;
 	}
-	public String getRegdate() {
-		return regdate;
+	public String getRepdate() {
+		return repdate;
 	}
-	public void setRegdate(String regdate) {
-		this.regdate = regdate;
+	public void setRepdate(String regdate) {
+		this.repdate = regdate;
 	}
 	public int getViewcnt() {
 		return viewcnt;
@@ -53,7 +53,7 @@ public class RepBoardVO {
 	@Override
 	public String toString() {
 		return "RepBoardVO [bno=" + bno + ", title=" + title + ", content=" + content + ", writer=" + writer
-				+ ", regdate=" + regdate + ", viewcnt=" + viewcnt + "]";
+				+ ", repdate=" + repdate + ", viewcnt=" + viewcnt + "]";
 	}
 	
 	

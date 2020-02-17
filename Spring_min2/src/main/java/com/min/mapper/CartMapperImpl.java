@@ -49,7 +49,7 @@ public class CartMapperImpl implements CartMapper{
 		paramMap.put("orderno", orderno);
 		paramMap.put("state", state);
 		paramMap.put("vo", vo);
-		sqlSession.selectList(namespace+".cartBuy", paramMap);
+		sqlSession.insert(namespace+".cartBuy", paramMap);
 
 	}
 
