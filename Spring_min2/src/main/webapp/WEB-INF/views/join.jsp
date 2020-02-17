@@ -7,6 +7,8 @@
 <title>join page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="resources/css/join.css">
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+<script src="/resources/js/addressapi.js"></script>
 
 </head>
 <body>
@@ -65,7 +67,31 @@
 			</td></tr>
 			<tr><td>성별</td><td><input type="radio" id="ugender" name="ugender" value="남">남<input type="radio" id="ugender" name="ugender" value="여">여</td></tr>
 			<tr><td>주소</td><td>
-				<textarea id="uaddress" name="uaddress"></textarea>
+				<table>
+				
+					<tr>
+						<td><input type="text" placeholder="우편번호" id="addr1" readonly="readonly" ></td>
+						<td><button type="button" id="address">
+							<i class="fa fa-search"></i> 
+						우편번호 찾기</button></td>
+					</tr>
+					
+					<tr>
+					
+						<td> <input placeholder="도로명 주소" id="addr2" type="text" readonly="readonly" /></td>
+					
+					</tr>
+					
+					<tr>
+					
+						<td>
+							<input class="form-control" placeholder="상세주소" id="addr3" type="text"  />
+							<input type="hidden" id="uaddress" name="uaddress">						
+						</td>
+					
+					</tr>
+				
+				</table>
 			</td></tr>
 			<tr><td>생년월일</td><td>
 				<select id="year">

@@ -10,6 +10,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.min.model.CartVO;
+import com.min.model.OrderVO;
+
 
 @Repository
 public class CartMapperImpl implements CartMapper{
@@ -39,6 +41,16 @@ public class CartMapperImpl implements CartMapper{
 		System.out.println("cart mapper="+cart);
 		sqlSession.delete(namespace+".cartDel", cart);
 		
+	}
+
+	@Override
+	public void cartBuy(OrderVO vo, String orderno, int state) throws Exception {
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("orderno", orderno);
+		paramMap.put("state", state);
+		paramMap.put("vo", vo);
+		sqlSession.selectList(namespace+".cartBuy", paramMap);
+
 	}
 
 }

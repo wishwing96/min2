@@ -3,6 +3,9 @@ package com.min.service;
 import java.util.List;
 
 import com.min.model.CartVO;
+import com.min.model.LoginVO;
+import com.min.model.OrderVO;
+import com.min.model.UserVO;
 
 public interface CartService {
 	
@@ -11,5 +14,7 @@ public interface CartService {
 	public List<CartVO> cart(String uid) throws Exception;
 	
 	public void cartDel(CartVO cart) throws Exception; 
+	
+	public void cartBuy(OrderVO vo, String orderno, int state) throws Exception;
 	
 }

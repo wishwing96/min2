@@ -96,10 +96,11 @@ public class JoinController {
 	}
 	
 	@RequestMapping(value="/information", method=RequestMethod.POST)
-	public String informationPOST(JoinVO join, UserVO vo) throws Exception{
+	public String informationPOST(JoinVO join, UserVO vo, Model model) throws Exception{
 		System.out.println("information post=========");
 		System.out.println("vo"+vo);
 		js.information(join);
+		model.addAttribute("vo", vo);
 		
 		return "information";
 	}

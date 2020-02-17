@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.min.mapper.CartMapper;
 import com.min.model.CartVO;
+import com.min.model.OrderVO;
+
 
 @Service
 public class CartServiceImpl implements CartService{
@@ -31,5 +33,11 @@ public class CartServiceImpl implements CartService{
 		cm.cartDel(cart);
 		System.out.println("cart Service="+cart);
 	}
+
+	@Override
+	public void cartBuy(OrderVO vo, String orderno, int state) throws Exception {
+		cm.cartBuy(vo, orderno, state);
+	}
+
 
 }

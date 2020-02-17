@@ -20,11 +20,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.min.model.AdminVO;
 import com.min.model.CartVO;
+import com.min.model.LoginVO;
 import com.min.model.OrderVO;
 import com.min.model.UserVO;
 import com.min.service.CartService;
 import com.min.service.OrderService;
 import com.min.service.UploadService;
+import com.min.service.UserService;
 
 @Controller
 public class MainController {
@@ -60,8 +62,8 @@ public class MainController {
 	
 	@RequestMapping(value="/order", method=RequestMethod.POST)
 	public String orderpost(OrderVO vo, Model model) throws Exception{
-		 
-		 Calendar cal = Calendar.getInstance();
+		
+		Calendar cal = Calendar.getInstance();
 		 int year = cal.get(Calendar.YEAR);
 		 String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
 		 String ymd = ym +  new DecimalFormat("00").format(cal.get(Calendar.DATE));
@@ -131,10 +133,10 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/cartList", method=RequestMethod.GET)
-	public void cartList(HttpSession session, Model model) throws Exception{
+	public void cartList(HttpSession session, Model model, UserVO vo) throws Exception{
 		UserVO user = (UserVO)session.getAttribute("vo");
 		String uid = user.getUid();
-		
+		System.out.println("user나오나요?="+vo);
 		
 		List<CartVO> cart = cs.cart(uid);
 		System.out.println("cart list="+cart);
@@ -159,6 +161,31 @@ public class MainController {
 	
 		return result;
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="/cartList", method = RequestMethod.POST)
+	public void cartBuyPost(OrderVO vo, Model model)throws Exception{
+		System.out.println("cartBuy 왓나요?");
+		
+		Calendar cal = Calendar.getInstance();
+		 int year = cal.get(Calendar.YEAR);
+		 String ym = year + new DecimalFormat("00").format(cal.get(Calendar.MONTH) + 1);
+		 String ymd = ym +  new DecimalFormat("00").format(cal.get(Calendar.DATE));
+		 String subNum = "";
+		 
+		 for(int i = 1; i <= 6; i ++) {
+		  subNum += (int)(Math.random() * 10);
+		 }
+		 
+		 String orderno = ymd + "_" + subNum;
+		 
+		 int state = 0;
+
+		cs.cartBuy(vo, orderno, state);
+		System.out.println("구매 테이블에 정보가 들어갔나요?");
+		
+	}
+	
 
 }
 

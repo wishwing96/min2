@@ -2,6 +2,7 @@
  * 
  */
 
+
 $("#uid").keyup( function(){
 	var id = $("#uid").val();
 	if(id.length>=8 && id.length<=12){
@@ -32,8 +33,41 @@ $("#pw2check").on("click", function(){
 		$("#c").html("다시 입력해주세요.");
 	}
 	
-})
+});
+
+$("#address").on("click", function(){
+	 new daum.Postcode({
+         oncomplete: function(data) {
+
+            var fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+            var extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+            if(data.bname !== '' && /[동|로|가]$/g.test(data.bname)){
+                extraRoadAddr += data.bname;
+            }
+            if(data.buildingName !== '' && data.apartment === 'Y'){
+               extraRoadAddr += (extraRoadAddr !== '' ? ', ' + data.buildingName : data.buildingName);
+            }
+            if(extraRoadAddr !== ''){
+                extraRoadAddr = ' (' + extraRoadAddr + ')';
+            }
+            if(fullRoadAddr !== ''){
+                fullRoadAddr += extraRoadAddr;
+            }
+
+            console.log(data.zonecode);
+            console.log(fullRoadAddr);
+            
+            
+            $("[id=addr1]").val(data.zonecode);
+            $("[id=addr2]").val(fullRoadAddr);
+            
+        }
+     }).open();
+});
+
 $(document).ready(function(){
+	alert("aaa");
 	$("#day").blur(function(){
 		var year = $("#year").val();
 		var month = $("#month").val();
@@ -91,6 +125,15 @@ $("#emailcheck1").blur(function(){
 		
 		
 	});
+
+$("#addr3").keyup(function(){
+	var addr1 = $("#addr1").val();
+	var addr2 = $("#addr2").val();
+	var addr3 = $("#addr3").val();
+	var uaddress = "우편 번호:"+addr1+
+					"주소:"+addr2+addr3;
+	$("#uaddress").val(uaddress);
+})
 
 
 $("#phone3").keyup(function(){

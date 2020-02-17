@@ -53,10 +53,6 @@
 			</td></tr>
 			<tr><td>휴대폰</td><td><input type="text" id="uphone" name="uphone" value="${vo.uphone}">
 			</td></tr>
-			<tr><td>인증번호입력</td><td>
-			<input type="text" id="numcheck">
-			<input type="button" value="확인" id="number">
-			</td></tr>
 			<tr><td>my point</td><td>${vo.upoint}p</td></tr>
 			<th colspan="2"><input type="submit" value="수정"></th>
 		</table>
