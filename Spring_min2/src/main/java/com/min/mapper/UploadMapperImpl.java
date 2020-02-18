@@ -61,6 +61,18 @@ public class UploadMapperImpl implements UploadMapper{
 		return list;
 	}
 
+	@Override
+	public String idCheck(int repnum) throws Exception {
+		return sqlSession.selectOne(namespace+".idCheck", repnum);
+	}
+
+	@Override
+	public void replyDel(BoardRepVO reply) throws Exception {
+		sqlSession.delete(namespace+".replyDel", reply);
+		System.out.println("replyDel="+reply);
+		
+	}
+
 
 
 

@@ -103,13 +103,13 @@
 					
 					<tr>
 					
-						<td> <input placeholder="도로명 주소" id="addr2" name="address2" type="text" readonly="readonly" /></td>
+						<td colspan="2"> <input placeholder="도로명 주소" id="addr2" name="address2" type="text" readonly="readonly" /></td>
 					
 					</tr>
 					
 					<tr>
 					
-						<td>
+						<td colspan="2">
 							<input class="form-control" placeholder="상세주소" id="addr3" name="address3" type="text"  />
 							<input type="hidden" id="uaddress" name="uaddress">						
 						</td>

@@ -6,8 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" type="text/css" href="resources/css/main.css">
-<link rel="stylesheet" type="text/css" href="resources/css/main_detail.css">
+<link rel="stylesheet" type="text/css" href="resources/css/join.css">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/resources/js/addressapi.js"></script>
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
@@ -55,7 +54,7 @@
 			</header>
 			
 <form action="order" method="post">
-
+<div id="middle">
 <table>
 	<tr><td>상품</td><td><input type="hidden" name="name" value="${order.name }">${order.name }</td></tr>
 	<tr><td>가격</td><td>	<input type="text" id="price" name="price" value="${order.price }" readonly="readonly">원</td></tr>
@@ -73,13 +72,13 @@
 					
 			<tr>
 					
-				<td> <input value="${vo.address2 }" id="addr2" name="address2" type="text" readonly="readonly" /></td>
+				<td colspan="2"> <input value="${vo.address2 }" id="addr2" name="address2" type="text" readonly="readonly" /></td>
 					
 			</tr>
 					
 			<tr>
 					
-				<td>
+				<td colspan="2">
 					<input class="form-control" value="${vo.address3 }" id="addr3" name="address3" type="text"  />
 					<input type="hidden" id="uaddress" name="uaddress">						
 				</td>
@@ -90,6 +89,7 @@
 	<tr><td>번호</td><td><input type="text" name="uphone" value="${vo.uphone }"></td></tr>
 	<tr><td colspan="2"><input type="submit" value="구매하기"></td></tr>
 </table>
+</div>
 <script>
 
 

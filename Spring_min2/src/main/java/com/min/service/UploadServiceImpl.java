@@ -1,22 +1,16 @@
 package com.min.service;
 
-import java.io.File;
 import java.util.List;
-import java.util.UUID;
 
-import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.FileCopyUtils;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.min.mapper.Upload2Mapper;
 import com.min.mapper.UploadMapper;
 import com.min.model.AdminVO;
 import com.min.model.BoardRepVO;
-import com.min.model.UploadVO;
 
 @Service
 public class UploadServiceImpl implements UploadService {
@@ -78,6 +72,18 @@ public class UploadServiceImpl implements UploadService {
 	public List<BoardRepVO> replyList(int gdsnum) throws Exception {
 		System.out.println("replyservice=="+um.replyList(gdsnum));
 		return um.replyList(gdsnum);
+	}
+
+	@Override
+	public String idCheck(int repnum) throws Exception {
+		return um.idCheck(repnum);
+	}
+
+	@Override
+	public void replyDel(BoardRepVO reply) throws Exception {
+		um.replyDel(reply);
+		System.out.println("reply service="+reply);
+		
 	}
 
 

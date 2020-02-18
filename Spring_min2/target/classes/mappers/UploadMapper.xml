@@ -61,5 +61,15 @@
 
 </select>
 
+<select id="idCheck" resultType="String">
+	select uid from reply_tb where repnum = #{repnum}
+</select>
+
+<delete id="replyDel">
+	delete from reply_tb
+	where uid=#{uid}
+	and repnum=#{repnum}
+</delete>
+
 
 </mapper>

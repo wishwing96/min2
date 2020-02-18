@@ -20,4 +20,8 @@ public interface UploadService {
 	
 	public List<BoardRepVO> replyList(int gdsnum) throws Exception;
 	
+	public String idCheck(int repnum) throws Exception;
+	
+	public void replyDel(BoardRepVO reply) throws Exception;
+	
 }

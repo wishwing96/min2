@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="stylesheet" type="text/css" href="resources/css/main.css">
+<link rel="stylesheet" type="text/css" href="resources/css/join.css">
 <link rel="stylesheet" type="text/css" href="resources/css/main_detail.css">
 <script src="http://code.jquery.com/jquery-3.4.1.js"></script>
 <script src="resources/js/main_detail.js"></script>
@@ -64,17 +64,17 @@
 <input type="hidden" value="${num }" id="num">
 
 <div class="img"></div>
-	<div id="a">
-	<table>
+<div id="a">
+<table border="1">
 	<tr><td>꽃 종류</td><td>${us.name}</td></tr>
 	<tr><td>가격</td><td>${us.price }원</td></tr>
 	<tr><td>설명</td><td>${us.proexplain }</td></tr>
 
 	<tr><th colspan="2"><a href="order?no=${us.no}">구매하기</a>||<input type="button" value="장바구니" id="cart"></th></tr>
-	<tr><td colspan="2"><div class="replies"></div></td></tr>
-	</table>
+	
+</table>
 </div>
-
+<div class="replybox">
 	<c:if test="${vo==null}">
 		<p>댓글 남기려면 <a href="login">로그인</a>하러가기</p>
 	</c:if>
@@ -82,13 +82,36 @@
 	<c:if test="${vo!=null}">
 		<input type="hidden" name="gdsnum" id="gdsnum" value="${us.no}">
 		<input type="hidden" name="uid" id="uid" value="${vo.uid}">
-		<table>
+		<table border="1">
 		
-			<tr><td><textarea name="repcon" id="repcon"></textarea></td>
-			<td><input type="button" id="reply" value="reply" ></td></tr>
+			<tr><td colspan="4"><textarea name="repcon" id="repcon"></textarea>
+			<input type="button" id="reply" value="reply" ></td></tr>
 			
 		</table>
+		
+		<div class="replies"></div>
 	</c:if>
+</div>
+
+<script>
+	$(document).on("click", ".delete", function(){
+		var data = {repnum : $(this).attr("data-repnum")};
+			
+		$.ajax({
+			url : "replyDel",
+			type : "post",
+			data : data,
+			success : function(result){
+				if(result=1){
+					alert("성공");
+				}else{
+					alert("작성자 본인만 삭제가 가능합니다.");
+				}
+			}
+		});
+			
+	});
+</script>
 
 </form>
 </body>

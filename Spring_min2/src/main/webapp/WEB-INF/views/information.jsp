@@ -8,7 +8,6 @@
 <title>login page</title>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="resources/css/join.css">
-<link rel="stylesheet" type="text/css" href="resources/css/login.css">
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <script src="/resources/js/addressapi.js"></script>
 </head>
@@ -89,13 +88,13 @@
 					
 					<tr>
 					
-						<td> <input value="${vo.address2 }" id="addr2" name="address2" type="text" readonly="readonly" /></td>
+						<td colspan="2"> <input value="${vo.address2 }" id="addr2" name="address2" type="text" readonly="readonly" /></td>
 					
 					</tr>
 					
 					<tr>
 					
-						<td>
+						<td colspan="2">
 							<input class="form-control" value="${vo.address3 }" id="addr3" name="address3" type="text"  />
 							<input type="hidden" id="uaddress" name="uaddress">						
 						</td>

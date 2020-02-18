@@ -66,20 +66,18 @@ var str2="";
 	$.getJSON("replyList/"+gdsnum, function(data){
 		$(data).each(
 			function(){
-				str2 += "<table><tr><td><input type='hidden' value='"+this.repnum+"'>"
-				+"</td><td>" +this.repcon +"</td><td>"+this.uid 
+				str2 += "<input type='hidden' value='"+this.repnum+"'>"
+				+"<table><tr><td>" +this.repcon +"</td><td>"+this.uid 
 				+"</td><td>"+ this.repdate
-				+"</td><td><input type='button' value='delete' id='delete'>"
 				+"</td></tr></table>"
+				+ "<div class='replyFooter'>"
+				+ "<button type='button' class='delete' data-repnum='" + this.repnum + "'>Delete</button>"
+				+ "</div>"
 			});
 			
 			$(".replies").html(str2);
 	});
 
-	$("#delete").on("click", function(){
-		alert("aaaa");
-
-	});	
 	
 })
 

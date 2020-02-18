@@ -8,6 +8,9 @@
 <title>Insert title here</title><meta name="viewport" content="width=device-width, initial-scale=1" />
 <link rel="stylesheet" type="text/css" href="resources/css/join.css">
 <link rel="stylesheet" type="text/css" href="resources/css/login.css">
+<style>
+	.textarea{width: 300px; height: 200px;}
+</style>
 </head>
 <body>
 		<!-- Header -->
@@ -60,7 +63,7 @@
 		<td>subject</td><td><input type="text" name="subject"></td>
 	</tr>
 	<tr>
-		<td>content</td><td><textarea name = "content"></textarea></td>
+		<td>content</td><td><textarea name = "content" class="textarea"></textarea></td>
 	</tr>
 	<tr>
 		<td>id</td><td><input type="text" name="uid" value = "${vo.uid}" readonly></td>

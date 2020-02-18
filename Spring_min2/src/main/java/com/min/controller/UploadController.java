@@ -38,6 +38,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.min.model.AdminVO;
 import com.min.model.BoardRepVO;
 import com.min.model.UploadVO;
+import com.min.model.UserVO;
 import com.min.service.UploadService;
 import com.min.util.MimeMediaUtil;
 
@@ -342,6 +343,30 @@ public class UploadController {
 		}
 		
 		return entity;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/replyDel", method=RequestMethod.POST)
+	public int deleteReply(HttpSession session, BoardRepVO reply) throws Exception{
+		int result = 0;
+		UserVO user = (UserVO)session.getAttribute("vo");
+		String uid = us.idCheck(reply.getRepnum());
+		System.out.println("controller에 들어왓나요?");
+		
+		System.out.println("세션아니디는 ="+user.getUid());
+		System.out.println("번호가 어떻게 되나요??"+uid);
+		
+		if(user.getUid().equals(uid)) {
+			reply.setUid(user.getUid());
+			System.out.println("if에 안들어왓나요??");
+			System.out.println("아이디는 인식이 되나요?"+reply.getUid());
+			us.replyDel(reply);
+			
+			System.out.println("controller Del밑에="+reply);
+			
+			result=1;
+		}
+		return result;
 	}
 }
 
