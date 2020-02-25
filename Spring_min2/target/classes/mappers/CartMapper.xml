@@ -16,14 +16,26 @@
 	and uid=#{uid};
 </select>
 
+<select id="cartnull" resultType="int">
+	select count(*)
+	from cart_tb as c, product_tb as p
+	where c.num = p.no
+	and uid=#{uid};
+</select>
+
 <delete id="cartDel">
 	delete from cart_tb
 	where cartnum = #{cartnum};
 </delete>
 
+<delete id="orderDel">
+	delete from cart_tb
+	where cartnum = #{num};
+</delete>
+
 <insert id="cartBuy">
-	insert 	into order_tb(orderno, uid, address1, address2, address3, uphone, price, stock, name, state)	
-	values (#{orderno}, #{vo.uid}, #{vo.address1}, #{vo.address2}, #{vo.address3}, #{vo.uphone}, #{vo.price},#{vo.stock}, #{vo.name}, #{state})
+	insert 	into order_tb(orderno, uid, address1, address2, address3, uphone, price, stock, name)	
+	values (#{orderno}, #{vo.uid}, #{vo.address1}, #{vo.address2}, #{vo.address3}, #{vo.uphone}, #{vo.price},#{vo.stock}, #{vo.name})
 </insert>
 
 </mapper>

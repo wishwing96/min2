@@ -2,21 +2,24 @@
  * 
  */
 
+var pattern_spc = /[~!@#$%^&*()_+|<>?:{}]/;
 
 $("#uid").keyup( function(){
 	var id = $("#uid").val();
 	if(id.length>=8 && id.length<=12){
 		$("#a").html("사용가능한 아이디 입니다.");
 	}else{
-		$("#a").html("사용불가능한 아이디 입니다.");
+		$("#a").html("아이디는 8자 이상 12자 이하로 입력하셔야 합니다.");
 	}
 })
 
 $("#upassword").keyup(function(){
 	var pw = $("#upassword").val();
 	
-	if(pw.length>=8 && pw.length<=12){
+	if(pw.length>=8 && pw.length<=12 && pattern_spc.test(pw)==true){
 		$("#b").html("사용가능한 비밀번호 입니다.");
+	}else if(pattern_spc.test(pw)==false){
+		$("#b").html("특수문자를 1개 이상 넣어주세요.");
 	}else{
 		$("#b").html("사용불가능한 비밀번호 입니다.");
 	}
@@ -67,7 +70,6 @@ $("#address").on("click", function(){
 });
 
 $(document).ready(function(){
-	alert("aaa");
 	$("#day").blur(function(){
 		var year = $("#year").val();
 		var month = $("#month").val();
@@ -113,14 +115,15 @@ $(document).ready(function(){
 })
 
 $("#emailcheck1").blur(function(){
-		var incode = $("#emailcheck1").val();
-		var checkcode = $("#code").html();
-		alert(checkcode);
+	var incode = $("#emailcheck1").val();
+	var checkcode = $("#code").html();
 		
 		if(incode == checkcode){
 			$("#mailMsg").html("인증이 완료되었습니다.");
+		}else if(incode == null){
+			$("#mailMsg").html("인증번호를 입력해주세요.");
 		} else{
-			$("#mailMsg").html("인증번호를 다시 확인해주세요.")
+			$("#mailMsg").html("인증 번호를 다시 확인해주세요.");;
 		}
 		
 		
@@ -146,11 +149,11 @@ $("#IdCheck").on("click", function(){
 		url:"IdCheck",
 		success : function(data){
 			if(data=='0'){
-				alert("성공");
+				alert("사용가능한 아이디 입니다.");
 				idck=1;
-			}else{
 				check=1;
-				alert("실패");
+			}else{
+				alert("이미 사용하고 있는 아이디 입니다.");
 			}
 		},
 		error:function(error){
@@ -161,12 +164,9 @@ $("#IdCheck").on("click", function(){
 
 
 $("#member").on("click", function(){
-	alert(check);
-	if(check==1){
-		alert("아이디 중복 확인을 해주세요.");
-		return false;
+	if($("#uname").val() == ""){
+		alert("이름을 입력하세요.");
 	}
-	
 	if($("#emailcheck1").val()!=$("#code").html()){
 		alert("이메일 인증을 확인하세요.");
 		return false;
@@ -179,16 +179,45 @@ $("#member").on("click", function(){
 		alert("아이디를 확인하세요.");
 		return false;
 	}
+	if(check!=1){
+		alert("아이디 중복 확인을 해주세요.");
+		return false;
+	}
+	var pw1 = $("#upassword").val();
+	var pw2 = $("#pwcheck").val();
 	if($("#upassword").val().length<8 || $("#upassword").val().length>12){
 		alert("비밀번호를 확인하세요.");
 		return false;
+	}
+	if(pattern_spc.test(pw1)==false){
+		alert("비밀번호에 특수문자를 넣어주세요.");
 	}
 	if($("#upassword").val()==""){
 		alert("비밀번호를 입력하세요.");
 		return false;
 	}
-	if($("#upassword").val().equals($("#pwcheck").val())){
-		alert("비밀번호를 확인하세요");
+	if(pw1!=pw2){
+		alert("비밀번호가 일치하지 않습니다.");
+		return false;
+	}
+	if($("#uemail").val()=="" ){
+		alert("이메일를 입력 해주세요.");
+		return false;
+	}
+	if($("#emailcheck1").val()==""){
+		alert("이메일 인증을 해주세요.");
+		return false;
+	}
+	if($("#addr1").val()==""){
+		alert("주소를 입력해주세요.");
+		return false;
+	}
+	if($("#addr3").val()==""){
+		alert("상세주소를 입력해주세요.");
+		return false;
+	}
+	if($("#phone").val()==""){
+		alert("전화번호를 입력해주세요.");
 		return false;
 	}
 	
@@ -196,6 +225,10 @@ $("#member").on("click", function(){
 
 
 $(document).ready(function(){
+	
+	$("input:text[numberOnly]").on("keyup", function() {
+	    $(this).val($(this).val().replace(/[^0-9]/g,""));
+	});
 
 	$("#email").change(function(){
 

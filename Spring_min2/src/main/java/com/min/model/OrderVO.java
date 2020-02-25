@@ -13,6 +13,29 @@ public class OrderVO {
     private int stock;
     private int state;
     private String msg;
+    private int upoint;
+    private int point;
+    private int cartnum;
+    
+    
+	public int getCartnum() {
+		return cartnum;
+	}
+	public void setCartnum(int cartnum) {
+		this.cartnum = cartnum;
+	}
+	public int getPoint() {
+		return point;
+	}
+	public void setPoint(int point) {
+		this.point = point;
+	}
+	public int getUpoint() {
+		return upoint;
+	}
+	public void setUpoint(int upoint) {
+		this.upoint = upoint;
+	}
 	public String getOrderno() {
 		return orderno;
 	}
@@ -83,7 +106,8 @@ public class OrderVO {
 	public String toString() {
 		return "OrderVO [orderno=" + orderno + ", name=" + name + ", uid=" + uid + ", address1=" + address1
 				+ ", address2=" + address2 + ", address3=" + address3 + ", uphone=" + uphone + ", price=" + price
-				+ ", stock=" + stock + ", state=" + state + ", msg=" + msg + "]";
+				+ ", stock=" + stock + ", state=" + state + ", msg=" + msg + ", upoint=" + upoint + ", point=" + point
+				+ ", cartnum=" + cartnum + "]";
 	}
 	
     

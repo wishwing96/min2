@@ -44,7 +44,7 @@ public class JoinController {
 		System.out.println("login post=========");
 		js.join(join);
 		
-		return "main";
+		return "redirect:main";
 	}
 	
 	@RequestMapping(value="/email", method=RequestMethod.GET)
@@ -88,20 +88,20 @@ public class JoinController {
 	}
 	
 	@RequestMapping(value="/information", method=RequestMethod.GET)
-	public String informationGET() throws Exception {
-		System.out.println("information get=========");
-		
+	public String informationGET(HttpSession session, String uid, Model model) throws Exception {
+		System.out.println("information get=========");	
+		UserVO user = (UserVO)session.getAttribute("vo");
+		uid = user.getUid();
+		model.addAttribute("ok", js.inform(uid));
 		return "information";
 	}
 	
-	@RequestMapping(value="/information", method=RequestMethod.POST)
-	public String informationPOST(JoinVO join, UserVO vo, Model model) throws Exception{
+	@RequestMapping(value="/information1", method=RequestMethod.POST)
+	public void informationPOST(JoinVO join, UserVO vo, Model model) throws Exception{
 		System.out.println("information post=========");
 		System.out.println("vo"+vo);
 		js.information(join);
 		model.addAttribute("vo", vo);
-		
-		return "information";
 	}
 	@ResponseBody
 	@RequestMapping(value="/IdCheck", method=RequestMethod.GET)

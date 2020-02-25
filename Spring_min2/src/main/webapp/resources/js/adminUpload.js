@@ -1,8 +1,6 @@
 
 		//파일 형식 검사
 
-		alert("aaa");
-
 		 var regex = new RegExp("(.*?)\.(exe|sh|zip|alz)$");
 		 var maxSize = 10485760;
 	
@@ -22,7 +20,7 @@
 
 
 $(document).ready(function(){
-	
+
 	$("input[type='file']").change(function(e){
 		
 		var formData = new FormData();
@@ -64,6 +62,8 @@ $(document).ready(function(){
 		var uploadResult = $(".uploadResult ul");
 		
 		var str = "";
+		
+		$("#result").val(1);
 		 
 		 $(uploadResultArr).each(function(i, obj){
 
@@ -72,15 +72,26 @@ $(document).ready(function(){
 				 str += "<input type='hidden' name='uploadvo[" + i + "].uuid' value='" + obj.uuid +"'>";
 				 str += "<input type='hidden' name='uploadvo[" + i + "].uploadPath' value='" +obj.uploadPath+"'>";
 				 str += "<input type='hidden' name='uploadvo[" + i + "].image' value='" +obj.image+"'>";
-				 
 			 
 		 })
-		
 		 uploadResult.append(str);
 		 
 	}//function showUploadedFile끝
 	
-	
+	$("#register").on("click", function(){
+		if($("#name").val() == ""){
+			alert("해당 제품의 제품 명을 입력하세요.");
+			return false;
+		}
+		if($("#price").val() == ""){
+			alert("해당 제품의 가격을 입력하세요.");
+			return false;
+		}
+		if($("#result").val() == "0"){
+			alert("해당 제품의 이미지 파일를 등록해주세요");
+			return false;
+		}
+	});
 });
 
 

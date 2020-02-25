@@ -21,14 +21,19 @@ public class OrderMapperImpl implements OrderMapper {
 	private static final String namespace="com.min.mapper.OrderMapper";
 	
 	@Override
-	public void order(OrderVO vo, String orderno, int state, int stock) throws Exception {
+	public void order(OrderVO vo, String orderno, int stock) throws Exception {
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("orderno", orderno);
-		paramMap.put("state", state);
 		paramMap.put("vo", vo);
 		paramMap.put("stock", stock);
 		sqlSession.insert(namespace+".order", paramMap);
+		
+	}
+	
+	@Override
+	public void orederPoint(OrderVO vo) throws Exception {
+		sqlSession.update(namespace+".orderPoint", vo);
 		
 	}
 

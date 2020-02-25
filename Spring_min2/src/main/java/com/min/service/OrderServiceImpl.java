@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.min.mapper.OrderMapper;
 import com.min.model.UserVO;
@@ -15,10 +16,13 @@ public class OrderServiceImpl implements OrderService{
 
 	@Autowired
 	OrderMapper om;
+	
+	@Transactional
 	@Override
-	public void order(OrderVO vo, String orderno, int state, int stock) throws Exception {
+	public void order(OrderVO vo, String orderno, int stock) throws Exception {
 
-		om.order(vo, orderno, state, stock);
+		om.order(vo, orderno, stock);
+		om.orederPoint(vo);
 	}
 	@Override
 	public List<OrderVO> orderResult(String uid) throws Exception {

@@ -30,9 +30,12 @@ public class LoginInterceptor extends HandlerInterceptorAdapter{
 			session.setAttribute(LOGIN, userVO);
 			session.setAttribute(ID, userVO.getUid());
 			session.setAttribute("vo", mv.getModel().get("userVO"));
-			response.sendRedirect("/controller/main");//로그인 성공 후 메인페이지로 이동
+			response.sendRedirect("main");//로그인 성공 후 메인페이지로 이동
 		}
 		
+		if(userVO==null) {
+			response.sendRedirect("login");
+		}
 		
 		/*if(userVO.getUid()!="admin" || userVO==null) {
 			response.sendRedirect("/controller/adminpage");

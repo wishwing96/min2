@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.min.mapper.JoinMapper;
 import com.min.model.JoinVO;
 import com.min.model.LoginVO;
+import com.min.model.UserVO;
 
 @Service
 public class JoinServiceImpl implements JoinService{
@@ -43,8 +44,9 @@ public class JoinServiceImpl implements JoinService{
 	}
 	
 	@Override
-	public LoginVO inform(JoinVO join) throws Exception {
-		return jm.inform(join);
+	public UserVO inform(String uid) throws Exception {
+		System.out.println("servie=="+jm.inform(uid));
+		return jm.inform(uid);
 		
 	}
 	

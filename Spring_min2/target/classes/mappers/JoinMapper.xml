@@ -30,9 +30,9 @@
 
 </update>
 
-<select id="inform" resultType="com.min.model.LoginVO">
+<select id="inform" resultType="com.min.model.UserVO">
 
-	select * from join_tb
+	select * from join_tb where uid=#{uid}
 
 </select>
 

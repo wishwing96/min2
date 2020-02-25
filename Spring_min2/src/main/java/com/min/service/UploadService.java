@@ -24,4 +24,6 @@ public interface UploadService {
 	
 	public void replyDel(BoardRepVO reply) throws Exception;
 	
+	public void replyMod(BoardRepVO reply) throws Exception;
+	
 }

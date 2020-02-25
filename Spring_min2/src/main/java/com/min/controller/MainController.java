@@ -20,13 +20,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.min.model.AdminVO;
 import com.min.model.CartVO;
-import com.min.model.LoginVO;
 import com.min.model.OrderVO;
 import com.min.model.UserVO;
 import com.min.service.CartService;
+import com.min.service.JoinService;
 import com.min.service.OrderService;
 import com.min.service.UploadService;
-import com.min.service.UserService;
 
 @Controller
 public class MainController {
@@ -37,16 +36,17 @@ public class MainController {
 	private OrderService os;
 	@Autowired
 	private CartService cs;
+	@Autowired
+	private JoinService js;
 	
 	@RequestMapping(value="/main", method=RequestMethod.GET)
-	public String main(Model model, AdminVO vo) throws Exception{
+	public void main(Model model, AdminVO vo) throws Exception{
 		System.out.println("main controller=");
  		model.addAttribute("list", us.detail());
-		return "main";
 	}
 	
 	@RequestMapping(value="/main_detail", method=RequestMethod.GET)
-	public String detailGet(@RequestParam int no, Model model, AdminVO vo) throws Exception{
+	public String detailGet(@RequestParam int no, Model model) throws Exception{
 		model.addAttribute("num", us.maindetail(no).size());
 		model.addAttribute("file", us.maindetail(no));
 		model.addAttribute("us", us.maindetail(no).get(0));
@@ -54,14 +54,14 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/order", method=RequestMethod.GET)
-	public void order(@RequestParam int no, Model model, AdminVO admin) throws Exception{
+	public void order(@RequestParam int no, Model model) throws Exception{
 		System.out.println("order controller="+ us.maindetail(no));
 		model.addAttribute("order", us.maindetail(no).get(0));
 		
 	}
 	
-	@RequestMapping(value="/order", method=RequestMethod.POST)
-	public String orderpost(AdminVO admin, OrderVO vo, Model model) throws Exception{
+	@RequestMapping(value="/order1", method=RequestMethod.POST)
+	public void orderpost(AdminVO admin, OrderVO vo, Model model, UserVO uv) throws Exception{
 		
 		Calendar cal = Calendar.getInstance();
 		 int year = cal.get(Calendar.YEAR);
@@ -74,15 +74,15 @@ public class MainController {
 		 }
 		 
 		 String orderno = ymd + "_" + subNum;
-		 int state = 0;
 		 int stock = admin.getStock();
 		 System.out.println("stock="+stock);
-		 os.order(vo, orderno, state, stock);
+		 os.order(vo, orderno, stock);
+		 System.out.println("vo="+vo);
 		 model.addAttribute("result", vo);
+		 model.addAttribute("value", 0);
 		
-		return "orderResult";
 	}
-	
+
 	@RequestMapping(value="/orderResult", method=RequestMethod.GET)
 	public void orderResult() throws Exception{
 		
@@ -92,7 +92,7 @@ public class MainController {
 	public String ordercheck(Model model, HttpSession session, String uid) throws Exception{
 		UserVO user = (UserVO)session.getAttribute("vo");
 		uid = user.getUid();
-		
+		System.out.println("ordercheck");
 		model.addAttribute("check", os.orderResult(uid));
 		
 		return "ordercheck";
@@ -120,27 +120,31 @@ public class MainController {
 	
 	@ResponseBody
 	@RequestMapping(value="/cart", method=RequestMethod.POST)
-	public void addCart(CartVO cart, HttpSession session, String uid) throws Exception{
+	public String addCart(CartVO cart, HttpSession session, String uid) throws Exception{
 		
 		UserVO user = (UserVO)session.getAttribute("vo");
 		uid = user.getUid();
-		
 		cs.addCart(cart, uid);
 		
 		
 		System.out.println("addCart");
+		return "redirect:cartList";
 		//cs.addCart(cart);
 	}
 	
 	@RequestMapping(value="/cartList", method=RequestMethod.GET)
-	public void cartList(HttpSession session, Model model, UserVO vo) throws Exception{
+	public String cartList(HttpSession session, Model model) throws Exception{
 		UserVO user = (UserVO)session.getAttribute("vo");
 		String uid = user.getUid();
-		System.out.println("user나오나요?="+vo);
+		System.out.println("user나오나요?=" + uid);
 		
 		List<CartVO> cart = cs.cart(uid);
 		System.out.println("cart list="+cart);
+		System.out.println("++++++++++"+cs.cartnull(uid));
+		model.addAttribute("count", cs.cartnull(uid));
 		model.addAttribute("cart", cart);
+		
+		return "cartList";
 	}
 	
 	@ResponseBody
@@ -163,8 +167,13 @@ public class MainController {
 	}
 	
 	@RequestMapping(value="/cartList", method = RequestMethod.POST)
-	public String cartBuyPost(OrderVO vo, Model model)throws Exception{
-		System.out.println("cartBuy 왓나요?");
+	public String cartBuyPost(String[] cartnum, OrderVO vo, Model model, CartVO cart)throws Exception{
+		System.out.println("cartBuy 왓나요?"+cartnum);
+		for(int i=0; i<cartnum.length; i++) {
+			int num = 0;
+			num = Integer.parseInt(cartnum[i]);
+			cs.orderDel(num);
+		}
 		
 		Calendar cal = Calendar.getInstance();
 		 int year = cal.get(Calendar.YEAR);
@@ -175,17 +184,20 @@ public class MainController {
 		 for(int i = 1; i <= 6; i ++) {
 		  subNum += (int)(Math.random() * 10);
 		 }
+
+
+		 vo.setStock(cart.getCartStock());
+		 vo.setName(cart.getName());
 		 
 		 String orderno = ymd + "_" + subNum;
 		 
-		 int state = 0;
-		 System.out.println("구매정보가 어떤가요??"+vo);
-		cs.cartBuy(vo, orderno, state);
-		System.out.println("구매 테이블에 정보가 들어갔나요?");
+		cs.cartBuy(vo, orderno);
+
 		 model.addAttribute("result", vo);
 		
 		return "orderResult";
 	}
+
 	
 
 }

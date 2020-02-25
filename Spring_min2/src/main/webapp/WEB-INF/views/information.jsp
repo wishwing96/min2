@@ -39,9 +39,9 @@
 
 			<table>
 				<tr>
-					<td><a>${vo.uname}님 환영합니다.</a></td>
+					<td><a href="register">${vo.uname}님 환영합니다.</a></td>
 					<td><a href="logout">logout</a></td>
-					<td><a href="register">register</a></td>
+					<td><a href="board_list">board</a></td>
 					<td><a href="adminOrder">order</a></td>
 				</tr>
 			</table>
@@ -51,7 +51,7 @@
 		<p>A free responsive site template by</p>
 		</div>
 </header>
-<form action="information" method="post">
+<form action="information1" method="post">
 <div id="all">
 	<div id="top">
 		<h1>information</h1>
@@ -61,18 +61,18 @@
 	<div id="middle">
 		<table>
 			<tr><td>이름(필수)</td>
-			<td><input type="text" id="uname" name="uname" value="${vo.uname }"></td></tr>
+			<td><input type="text" id="uname" name="uname" value="${ok.uname }"></td></tr>
 			<tr><td>아이디(필수)</td>
-			<td><input type="text" id="uid" name="uid" value="${vo.uid }" >
+			<td><input type="text" id="uid" name="uid" value="${ok.uid }" readonly="readonly" >
 			<tr><td>비밀번호(필수)</td>
-			<td><input type="password" id="upassword" name="upw" value="${vo.upw}">
+			<td><input type="password" id="upassword" name="upw" value="${ok.upw}">
 			<label id="b">비밀번호는 8자이상 12자 이하로 입력하셔야합니다.</label></td></tr>
 			<tr><td>비밀번호확인(필수)</td>
 			<td><input type="password" id="pwcheck" >
 			<input type="button" value="확인" id="pw2check">
 			<label id="c"></label></td></tr>
 			<tr><td>이메일</td>
-			<td><input type="text" id="uemail" name="uemail"value="${vo.uemail}" readonly></td></tr>
+			<td><input type="text" id="uemail" name="uemail"value="${ok.uemail}" readonly></td></tr>
 			
 			<tr>
 				<td>주소</td>
@@ -80,7 +80,7 @@
 				<table>
 				
 					<tr>
-						<td><input type="text" value="${vo.address1 }" id="addr1" name="address1" readonly="readonly" ></td>
+						<td><input type="text" value="${ok.address1 }" id="addr1" name="address1" readonly="readonly" ></td>
 						<td><button type="button" id="address">
 							<i class="fa fa-search"></i> 
 						우편번호 찾기</button></td>
@@ -88,14 +88,14 @@
 					
 					<tr>
 					
-						<td colspan="2"> <input value="${vo.address2 }" id="addr2" name="address2" type="text" readonly="readonly" /></td>
+						<td colspan="2"> <input value="${ok.address2 }" id="addr2" name="address2" type="text" readonly="readonly" /></td>
 					
 					</tr>
 					
 					<tr>
 					
 						<td colspan="2">
-							<input class="form-control" value="${vo.address3 }" id="addr3" name="address3" type="text"  />
+							<input class="form-control" value="${ok.address3 }" id="addr3" name="address3" type="text"  />
 							<input type="hidden" id="uaddress" name="uaddress">						
 						</td>
 					
@@ -104,9 +104,9 @@
 				</table>
 				</td>
 			</tr>
-			<tr><td>휴대폰</td><td><input type="text" id="uphone" name="uphone" value="${vo.uphone}">
+			<tr><td>휴대폰</td><td><input type="text" id="uphone" name="uphone" value="${ok.uphone}">
 			</td></tr>
-			<tr><td>my point</td><td>${vo.upoint}p</td></tr>
+			<tr><td>my point</td><td>${ok.upoint}p</td></tr>
 			<th colspan="2"><input type="submit" value="수정"></th>
 		</table>
 	</div>

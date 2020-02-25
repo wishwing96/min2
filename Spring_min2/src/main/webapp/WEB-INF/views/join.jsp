@@ -40,9 +40,9 @@
 
 			<table>
 				<tr>
-					<td><a>${vo.uname}님 환영합니다.</a></td>
+					<td><a href="register">${vo.uname}님 환영합니다.</a></td>
 					<td><a href="logout">logout</a></td>
-					<td><a href="register">register</a></td>
+					<td><a href="board_list">board</a></td>
 					<td><a href="adminOrder">order</a></td>
 				</tr>
 			</table>
@@ -73,7 +73,7 @@
 			<td><input type="password" id="pwcheck">
 			<input type="button" value="확인" id="pw2check">
 			<label id="c"></label></td></tr>
-			<tr><td>이메일</td>
+			<tr><td>이메일(필수)</td>
 			<td><input type="text" id="uemail1">@<input type="text" id="uemail2"><input type="hidden" name="uemail" id="uemail">
 			<select name="email">
 			<option value="1">직접입력</option>
@@ -91,7 +91,7 @@
 			<span id="mailMsg"></span> 
 			</td></tr>
 			<tr><td>성별</td><td><input type="radio" id="ugender" name="ugender" value="남">남<input type="radio" id="ugender" name="ugender" value="여">여</td></tr>
-			<tr><td>주소</td><td>
+			<tr><td>주소(필수)</td><td>
 				<table>
 				
 					<tr>
@@ -110,8 +110,7 @@
 					<tr>
 					
 						<td colspan="2">
-							<input class="form-control" placeholder="상세주소" id="addr3" name="address3" type="text"  />
-							<input type="hidden" id="uaddress" name="uaddress">						
+							<input class="form-control" placeholder="상세주소" id="addr3" name="address3" type="text"  />					
 						</td>
 					
 					</tr>
@@ -146,14 +145,14 @@
 				</select>
 				<input type="hidden" id="birth" name="ubirth">
 			</td></tr>
-			<tr><td>휴대폰</td><td>
+			<tr><td>휴대폰(필수)</td><td>
 			<select id="phone1">
 				<option value="010">010</option>
 				<option value="011">011</option>
 				<option value="012">012</option>
 			</select>
-			<input type="text" id="phone2">
-			-<input type="text" id="phone3">
+			<input type="text" maxlength="4" id="phone2" numberOnly>
+			-<input type="text" maxlength="4" id="phone3" numberOnly>
 			<input type="hidden" id="phone" name="uphone">
 			</td></tr>
 			<tr><th colspan="3"><input type="submit" value="가입" id="member" onclick="btn_click('join')"></th></tr>

@@ -18,7 +18,7 @@
 <form action="adminpage" method="post" enctype="multipart/form-data">
 <table>
 
-	<tr><td>상품 이름</td><td><input type="text" name="name"></td></tr>
+	<tr><td>상품 이름</td><td><input type="text" name="name" id="name"></td></tr>
 	<tr><td>상품 설명</td>
 	<td>	
 		<textarea rows="" cols="" id="proexplain" name="proexplain"></textarea>
@@ -32,15 +32,15 @@
 			 CKEDITOR.replace("proexplain", ckeditor_config);
 		</script>
 	</td></tr>
-	<tr><td>상품 개수</td><td><input type="text" name="amount"></td></tr>
-	<tr><td>상품 가격</td><td><input type="text" name="price"></td></tr>
-	<tr><td>상품 이미지</td><td><input type="file" name="uploadFile" multiple></td></tr>
+	<tr><td>상품 가격</td><td><input type="text" name="price" id="price"></td></tr>
+	<tr><td>상품 이미지</td><td><input type="file" name="uploadFile" multiple>
+							<input type="hidden" id="result" value="0"></td></tr>
 	<div class="uploadResult">
 	
 		<ul></ul>
 	
 	</div>
-	<tr><td colspan="2"><input type="submit" value="등록"></td></tr>
+	<tr><td colspan="2"><input type="submit" id="register" value="등록"></td></tr>
 	
 </table>
 </form>

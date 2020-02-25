@@ -39,9 +39,9 @@
 
 			<table>
 				<tr>
-					<td><a>${vo.uname}님 환영합니다.</a></td>
+					<td><a href="register">${vo.uname}님 환영합니다.</a></td>
 					<td><a href="logout">logout</a></td>
-					<td><a href="register">register</a></td>
+					<td><a href="board_list">board</a></td>
 					<td><a href="adminOrder">order</a></td>
 				</tr>
 			</table>

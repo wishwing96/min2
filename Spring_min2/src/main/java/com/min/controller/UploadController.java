@@ -158,7 +158,7 @@ public class UploadController {
 		System.out.println("bbbb");
 		
 		
-		return "main";
+		return "redirect: register";
 		
 	}
 	
@@ -351,16 +351,33 @@ public class UploadController {
 		int result = 0;
 		UserVO user = (UserVO)session.getAttribute("vo");
 		String uid = us.idCheck(reply.getRepnum());
-		System.out.println("controller에 들어왓나요?");
-		
-		System.out.println("세션아니디는 ="+user.getUid());
-		System.out.println("번호가 어떻게 되나요??"+uid);
+
 		
 		if(user.getUid().equals(uid)) {
 			reply.setUid(user.getUid());
-			System.out.println("if에 안들어왓나요??");
-			System.out.println("아이디는 인식이 되나요?"+reply.getUid());
 			us.replyDel(reply);
+			
+			System.out.println("controller Del밑에="+reply);
+			
+			result=1;
+		}
+		return result;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="/replyMod", method=RequestMethod.POST)
+	public int modifyReply(HttpSession session, BoardRepVO reply) throws Exception{
+		System.out.println("controller오나요??");
+		int result = 0;
+		UserVO user = (UserVO)session.getAttribute("vo");
+		System.out.println("user은 들어오나요??"+user);
+		String uid = us.idCheck(reply.getRepnum());
+		System.out.println("uid가 들어오나요??"+uid);
+		
+		if(user.getUid().equals(uid)) {
+			System.out.println("if절 안은 들어오나요??");
+			reply.setUid(user.getUid());
+			us.replyMod(reply);
 			
 			System.out.println("controller Del밑에="+reply);
 			

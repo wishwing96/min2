@@ -13,9 +13,16 @@ public class AdminVO {
 	private String proexplain;
 	private int price;
 	private int stock;
+	private String file;
 	
 	
 	
+	public String getFile() {
+		return file;
+	}
+	public void setFile(String file) {
+		this.file = file;
+	}
 	public int getStock() {
 		return stock;
 	}

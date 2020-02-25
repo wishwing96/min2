@@ -18,22 +18,17 @@
 		<td>상품 이미지</td>
 		<td>상품 이름</td>
 		<td>상품 설명</td>
-		<td>상품 수량</td>
 		<td>상품가격</td>
 		<td>선택</td>
 	</tr>
 
 <c:forEach items="${list}" var="list" varStatus="status">
 
-	<input type="hidden" value="${list.uploadPath }" id="path${status.count}">
-	<input type="hidden" value="${list.uuid }" id="uuid${status.count}">
-	<input type="hidden" value="${list.filename}" id="filename${status.count}">
 	
 	<tr>
-		<td><div class="img${status.count}"></div></td>
+		<td><img src='display?filename=${list.file }' width='300' height='300'></td>
 		<td>${list.name }</td>
 		<td>${list.proexplain }</td>
-		<td>${list.amount }</td>
 		<td>${list.price }</td>
 		<td>
 			<divclass="checkBox">
@@ -42,26 +37,10 @@
 		</td>
 	</tr>
 
-	<script>
-	
-
-	$(document).ready(function(){
-		var str="";
-		
-			
-			var file=$("#path${status.count}").val()+"/"+$("#uuid${status.count}").val()+"_"+$("#filename${status.count}").val();
-			
-			str = "<div>"+"<img src='display?filename="+file+"' width='100' height='100'>"+"<div>"
-			
-			$(".img${status.count}").append(str);
-		
-	});
-	
-	</script>
 
 </c:forEach>
 
-<tr><td colspan="5"><a href="adminpage">상품등록</a></td><td><input type="button" class="selectDelete_btn" value="삭제"></td></tr>
+<tr><th colspan="4"><a href="adminpage">상품등록</a> || <a href="main">main</a></th><td><input type="button" class="selectDelete_btn" value="삭제"></td></tr>
 
 </table>
 </form>

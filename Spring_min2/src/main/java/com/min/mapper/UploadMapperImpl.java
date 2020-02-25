@@ -73,6 +73,12 @@ public class UploadMapperImpl implements UploadMapper{
 		
 	}
 
+	@Override
+	public void replyMod(BoardRepVO reply) throws Exception {
+		sqlSession.update(namespace+".replyMod", reply);
+		
+	}
+
 
 
 

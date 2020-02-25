@@ -42,9 +42,9 @@
 
 			<table>
 				<tr>
-					<td><a>${vo.uname}님 환영합니다.</a></td>
+					<td><a href="register">${vo.uname}님 환영합니다.</a></td>
 					<td><a href="logout">logout</a></td>
-					<td><a href="register">register</a></td>
+					<td><a href="board_list">board</a></td>
 					<td><a href="adminOrder">order</a></td>
 				</tr>
 			</table>
@@ -75,10 +75,10 @@
 </c:forEach>
 
 <c:if test="${vo!=null}">
-<tr><td colspan="4"><a href="board_write">글작성</a></tr></td>
+<tr><th colspan="5"><a href="board_write">글작성</a></th></td>
 </c:if>
 
-<tr><td colspan="4">
+<tr><th colspan="5">
 <form action="board_list" method="get">
 	<input type="hidden" name="pagenum" value="${page.rec.getpagenum()}">
 	<input type="hidden" name="amount" value="${page.rec.getamount()}">
@@ -98,7 +98,7 @@
      </c:if>
 
      
-</td></tr>
+</th></tr>
 
 </table>
 

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 
 import com.min.model.JoinVO;
 import com.min.model.LoginVO;
+import com.min.model.UserVO;
 
 @Repository
 public class JoinMapperImpl implements JoinMapper{
@@ -47,9 +48,9 @@ public class JoinMapperImpl implements JoinMapper{
 	}
 	
 	@Override
-	public LoginVO inform(JoinVO join) throws Exception {
-		LoginVO inform = sqlSession.selectOne(namespace+".inform", join);
-		
+	public UserVO inform(String uid) throws Exception {
+		UserVO inform = sqlSession.selectOne(namespace+".inform", uid);
+		System.out.println(inform);
 		return  inform;
 	}
 	@Override

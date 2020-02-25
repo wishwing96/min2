@@ -21,7 +21,7 @@ $(document).ready(function(){
 	
 	$("#cart").on("click",function(){
 		var cartStock = $("#cartStock").val();
-		
+		alert("cartStock="+cartStock);
 		var data = {
 				num : gdsnum,
 				cartStock : cartStock
@@ -44,6 +44,7 @@ $(document).ready(function(){
 		
 		var uid =  $("#uid").val();
 		var repcon = $("#repcon").val();
+		var no = $("#no").val();
 		
 		$.ajax({
 			type : "post",
@@ -52,7 +53,7 @@ $(document).ready(function(){
 			dataType : "text",
 			data : JSON.stringify({gdsnum:gdsnum, uid:uid, repcon:repcon}),
 			success:function(data){
-				alert("ok");
+				location.href="/controller/main_detail?no="+no;
 			},
 			error : function(err){
 				alert("error");
@@ -66,13 +67,12 @@ var str2="";
 	$.getJSON("replyList/"+gdsnum, function(data){
 		$(data).each(
 			function(){
-				str2 += "<input type='hidden' value='"+this.repnum+"'>"
-				+"<table><tr><td>" +this.repcon +"</td><td>"+this.uid 
+				str2 += "<tr><td><input type='hidden' value='"+this.repnum+"'>" +this.repcon +"</td><td>"+this.uid 
 				+"</td><td>"+ this.repdate
-				+"</td></tr></table>"
-				+ "<div class='replyFooter'>"
-				+ "<button type='button' class='delete' data-repnum='" + this.repnum + "'>Delete</button>"
-				+ "</div>"
+				+"</td><td><div class='replyFooter'>"
+				+"<button type='button' class='delete' data-repnum='" + this.repnum + "'>Delete</button>"
+				+"<button type='button' class='modify' data-repnum='" + this.repnum + "'>Modify</button>"
+				+ "</div></td></tr>"
 			});
 			
 			$(".replies").html(str2);

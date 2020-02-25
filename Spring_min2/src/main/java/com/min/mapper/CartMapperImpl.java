@@ -35,6 +35,12 @@ public class CartMapperImpl implements CartMapper{
 		System.out.println("cart mapper="+list);
 		return list;
 	}
+	
+	@Override
+	public int cartnull(String uid) throws Exception {
+		
+		return sqlSession.selectOne(namespace+".cartnull", uid);
+	}
 
 	@Override
 	public void cartDel(CartVO cart) throws Exception {
@@ -44,13 +50,18 @@ public class CartMapperImpl implements CartMapper{
 	}
 
 	@Override
-	public void cartBuy(OrderVO vo, String orderno, int state) throws Exception {
+	public void cartBuy(OrderVO vo, String orderno) throws Exception {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("orderno", orderno);
-		paramMap.put("state", state);
 		paramMap.put("vo", vo);
 		sqlSession.insert(namespace+".cartBuy", paramMap);
 
+	}
+
+	@Override
+	public void orderDel(int num) throws Exception {
+		sqlSession.delete(namespace+".orderDel", num);
+		
 	}
 
 }

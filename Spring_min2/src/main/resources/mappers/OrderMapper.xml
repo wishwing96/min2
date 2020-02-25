@@ -6,10 +6,15 @@
 
 <insert id="order">
 	
-	insert 	into order_tb(orderno, uid, address1, address2, address3, uphone, price, stock, name, state)	
-	values (#{orderno}, #{vo.uid}, #{vo.address1}, #{vo.address2}, #{vo.address3}, #{vo.uphone}, #{vo.price},#{stock}, #{vo.name}, #{state})
+	insert 	into order_tb(orderno, uid, address1, address2, address3, uphone, price, stock, name)	
+	values (#{orderno}, #{vo.uid}, #{vo.address1}, #{vo.address2}, #{vo.address3}, #{vo.uphone}, #{vo.price},#{stock}, #{vo.name})
 </insert>
 
+<update id="orderPoint">
+
+	update join_tb set upoint=upoint-#{upoint} , upoint=upoint+#{point} where uid=#{uid}
+	
+</update>
 
 <select id="orderResult" resultType="com.min.model.OrderVO">
 	select *

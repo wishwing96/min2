@@ -7,8 +7,8 @@
 
 <insert id="upload">
 
-	insert into product_tb(name, proexplain, file, amount, price)
-	values(#{vo.name}, #{vo.proexplain}, #{file}, #{vo.amount}, #{vo.price})
+	insert into product_tb(name, proexplain, file, price)
+	values(#{vo.name}, #{vo.proexplain}, #{file}, #{vo.price})
 	<selectKey resultType="int" keyProperty="vo.no" order="AFTER">
 	select last_insert_id()
 	</selectKey>
@@ -24,7 +24,7 @@
 
 <select id="detail" resultType="com.min.model.AdminVO">
 
-	select p.no, name, proexplain, amount, price, filename, max(uploadPath)uploadPath, uuid
+	select p.no, name, proexplain, price, file, filename, max(uploadPath)uploadPath, uuid
 	from product_tb as p, upload_tb as u
 	where p.no = u.no
     group by p.no;
@@ -70,6 +70,10 @@
 	where uid=#{uid}
 	and repnum=#{repnum}
 </delete>
+
+<update id="replyMod">
+	update reply_tb set repcon = #{repcon} where repnum=#{repnum}
+</update>
 
 
 </mapper>

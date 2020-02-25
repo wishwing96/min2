@@ -19,6 +19,7 @@
 	
 	.orderInfo { border:5px solid #eee; padding:20px; display:none ; }
 	#addr2, #addr3 { width:250px; }
+	.cartStock {width:10px; }
 </style>
 
 </head>
@@ -50,9 +51,9 @@
 
 			<table>
 				<tr>
-					<td><a>${vo.uname}님 환영합니다.</a></td>
+					<td><a href="register">${vo.uname}님 환영합니다.</a></td>
 					<td><a href="logout">logout</a></td>
-					<td><a href="register">register</a></td>
+					<td><a href="board_list">board</a></td>
 					<td><a href="adminOrder">order</a></td>
 				</tr>
 			</table>
@@ -64,7 +65,7 @@
 </header>
 
 <form action="cartList" method="post" >
-
+<div class="cartnum"></div>
 <table>
 	<tr><td colspan="5"><input type="button" value="delete" id="delete"></td></tr>
 		<c:set var="num" value="0"></c:set>
@@ -75,46 +76,65 @@
 				</tr>
 				<tr>
 					<td><img src="display?filename=${cart.file }" width='300' height='300'></td><td>${cart.name }</td>
-					<td>${cart.cartStock }</td><td>${cart.price }</td>
+					<td><input type="hidden" value=${cart.cartStock } name="cartStock">${cart.cartStock }</td>
+					<td>${cart.price }</td>
 					<td><input type="checkbox" name="chBox" class="chBox" data-cartnum="${cart.cartnum }" 
 						data-cartStock="${cart.cartStock }" data-price="${cart.price }" value="${cart.name }"></td>
 				</tr>
 			<c:set var="num" value="${num+1}"></c:set>
 		</c:forEach>
 	
-
 	<tr><td colspan="4"><div class="price"></div></td><td>
-	<div class="orderOpen"><input type="button" value="구매 정보 입력" id="buy"></div></td></tr></table>
-<div class="orderInfo"><table><tr>
+	
+	<div class="orderOpen">
+		<c:if test="${count != 0 }"><input type="button" value="구매 정보 입력" id="buy"></c:if>
+	</div></td></tr></table>
+	
+<div class="orderInfo">
+<table>
+	<tr>
 		<td><input type="hidden" name="uid" value="${vo.uid}">${vo.uid}</td>
+	</tr>
+	<tr>
+		<td><input type="hidden" value="${vo.upoint }" id="point">${vo.upoint}p</td>
+	</tr>
+	<tr>
+		<td><input type="text" name="upoint" value="0" id="upoint" >p</td>
+	</tr>
+	<tr>
+		<td><input type="text" name="point" id="getpoint" readonly>p</td>
+	</tr>
 				
-					<tr>
-						<td><input type="text" value="${vo.address1 }" id="addr1" name="address1" readonly="readonly" >
-						<button type="button" id="address">
-							<i class="fa fa-search"></i> 
-						우편번호 찾기</button></td>
-					</tr>
+	<tr>
+		<td><input type="text" value="${vo.address1 }" id="addr1" name="address1" readonly="readonly" >
+			<button type="button" id="address">
+				<i class="fa fa-search"></i> 
+					우편번호 찾기</button></td>
+	</tr>
 					
-					<tr>
+	<tr>
 					
-						<td> <input value="${vo.address2 }" id="addr2" name="address2" type="text" readonly="readonly" /></td>
+		<td> <input value="${vo.address2 }" id="addr2" name="address2" type="text" readonly="readonly" /></td>
 					
-					</tr>
+	</tr>
 					
-					<tr>
+	<tr>
+		<td>
+			<input class="form-control" value="${vo.address3 }" id="addr3" name="address3" type="text" width="300" />
+			<input type="hidden" id="uaddress" name="uaddress">						
+		</td>
 					
-						<td>
-							<input class="form-control" value="${vo.address3 }" id="addr3" name="address3" type="text" width="300" />
-							<input type="hidden" id="uaddress" name="uaddress">						
-						</td>
-					
-					</tr>
+	</tr>
 				
 			
-	<tr><td>tel:<input type="text" name="uphone" value="${vo.uphone }">
-		<input type="submit" value="구매"></td>
+	<tr>
+		<td>tel:<input type="text" name="uphone" value="${vo.uphone }"></td>
+	</tr>
+	<tr>
+		<td><input type="submit" id="order" value="구매"></td>
 	</tr>
 </table></div>
+<div class="name"></div>
 </form>
 
 	
@@ -154,36 +174,62 @@
 	       }
 	    }).open();
 	});
-	
-		$("#buy").click(function(){
-			$(".orderInfo").slideDown();
-		})
 		
 		$(document).ready(function(){
+			var price = 0;
+			var upoint = 0;
+			var point = parseInt($("#point").val());
 			$("#buy").click(function(){
 				
 				if(confirm("제품을 구매 하시겠습니까?")){
-					var checkArr = new Array();
-					var price = 0;
+					var cartnum = "";
 					var name = "";
 					var str1="";
 					var str2="";
+					var str3="";
 					
 					$("input[class='chBox']:checked").each(function(){
 						price = price + parseInt($(this).attr("data-price")*$(this).attr("data-cartStock"));
 						name = name +"/"+ $(this).val();
-						str1 = "<input type='text' value='"+price+"' name='price' readonly>원";
-						str2 = "<input type='hidden' value='"+name+"' name='name'>"
 						
+						cartnum = $(this).attr("data-cartnum");
+						
+						str1 = "<input type='text' value='"+price+"' id='price' name='price' readonly>원";
+						str2 = "<input type='hidden' value='"+name+"' name='name'>"
+						str3 += "<input type='hidden' value='"+cartnum+"' name='cartnum'>"
 					});
+					
 					$(".price").append(str1);
 					$(".name").append(str2);
+					$(".cartnum").append(str3);
+					var point1 = price * 0.01;
+					
+					$("#getpoint").val(point1);
+					
+					$("#upoint").on("propertychange change keyup paste input", function(){
+						upoint = parseInt($("#upoint").val());
+						var total = price - upoint;
+						$("#price").val(total);
+						
+						$("input:text[numberOnly]").on("keyup", function() {
+						    $(this).val($(this).val().replace(/[^0-9]/g,""));
+						});
 
+					})
 				}
 			});
+			$("#order").on("click", function(){
+				
+				if(upoint>point){
+
+					alert("포인트 초과입니다.");
+					return false;
+				}
+				
+			})
 		});
 		
 	</script>
-	<div class="name"></div>
+	
 </body>
 </html>

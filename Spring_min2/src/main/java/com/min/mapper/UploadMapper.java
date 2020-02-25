@@ -25,5 +25,7 @@ public interface UploadMapper {
 	public String idCheck(int repnum) throws Exception; 
 	
 	public void replyDel(BoardRepVO reply) throws Exception;
+	
+	public void replyMod(BoardRepVO reply) throws Exception;
 
 }

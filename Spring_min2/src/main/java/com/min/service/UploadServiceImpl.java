@@ -86,5 +86,12 @@ public class UploadServiceImpl implements UploadService {
 		
 	}
 
+	@Override
+	public void replyMod(BoardRepVO reply) throws Exception {
+		um.replyMod(reply);
+		System.out.println("서비스는 왔나요??"+reply);
+		
+	}
+
 
 }

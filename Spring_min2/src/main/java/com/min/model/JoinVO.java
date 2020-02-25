@@ -12,6 +12,15 @@ public class JoinVO {
 	private String address3;
 	private String ubirth;
 	private String uphone;
+	private int upoint;
+	
+	
+	public int getUpoint() {
+		return upoint;
+	}
+	public void setUpoint(int upoint) {
+		this.upoint = upoint;
+	}
 	public String getUname() {
 		return uname;
 	}
@@ -76,7 +85,7 @@ public class JoinVO {
 	public String toString() {
 		return "JoinVO [uname=" + uname + ", uid=" + uid + ", upw=" + upw + ", uemail=" + uemail + ", ugender="
 				+ ugender + ", address1=" + address1 + ", address2=" + address2 + ", address3=" + address3 + ", ubirth="
-				+ ubirth + ", uphone=" + uphone + "]";
+				+ ubirth + ", uphone=" + uphone + ", upoint=" + upoint + "]";
 	}
 
 	

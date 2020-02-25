@@ -2,6 +2,7 @@ package com.min.mapper;
 
 import com.min.model.JoinVO;
 import com.min.model.LoginVO;
+import com.min.model.UserVO;
 
 public interface JoinMapper {
 	
@@ -15,7 +16,7 @@ public interface JoinMapper {
 	
 	public LoginVO pw(JoinVO join) throws Exception;
 	
-	public LoginVO inform(JoinVO join) throws Exception;
+	public UserVO inform(String uid) throws Exception;
 	
 	public JoinVO IdCheck(JoinVO join) throws Exception;
 	

@@ -8,7 +8,7 @@ import com.min.model.OrderVO;
 
 public interface OrderService {
 	
-	public void order(OrderVO vo, String orderno, int state, int stock) throws Exception;
+	public void order(OrderVO vo, String orderno, int stock) throws Exception;
 	
 	public List<OrderVO> orderResult(String uid) throws Exception;
 	
